@@ -1,0 +1,28 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "node": "current"
+        },
+        "exclude": [
+          "transform-async-to-generator"
+        ],
+        "useBuiltIns": true
+      }
+    ],
+    "stage-2"
+  ],
+  "plugins": [
+    "transform-async-to-generator-2",
+    "babel-plugin-add-module-exports",
+    "babel-plugin-transform-decorators-legacy",
+    [
+      "transform-object-rest-spread",
+      {
+        "useBuiltIns": true
+      }
+    ]
+  ]
+}

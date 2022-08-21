@@ -1,5 +1,6 @@
 /**
- * leetcode 55：跳跃游戏
+ * - leetcode 55：跳跃游戏
+ *
  * 题目描述：
  *  1、给定一个非负整数数组，你最初位于数组的第一个位置
  *  2、数组中的每个元素代表你在该位置可以跳跃的最大长度
@@ -16,7 +17,14 @@
  *  解释: 无论怎样，你总会到达索引为 3 的位置。但该位置的最大跳跃长度是 0 ， 所以你永远不可能到达最后一个位置
  */
 
-const debug = require('debug')('jumpGame');
+/**
+ * 算法思想：
+ *  使用贪心策略，每次取最大跳跃步数（取最大覆盖范围），
+ *  整体最优解：最后得到整体最大覆盖范围，看是否能到终点
+ *
+ * 参考文档：
+ *  https://programmercarl.com/0055.%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F.html
+ */
 
 /**
  * 方法一: 贪心算法 - 维护一个变量reach表示能够到达的最远的距离
@@ -30,8 +38,10 @@ function jumpGameV1(nums) {
   if (!Array.isArray(nums) || !nums.length) {
     throw new Error('请输入非空数组');
   }
+
   const len = nums.length;
   let reach = 0;
+
   for (let i = 0; i < len; ++i) {
     // i > reach 已经到不了最后位置
     // reach >= n - 1 已经确定能达到最后位置
@@ -39,6 +49,7 @@ function jumpGameV1(nums) {
     // 更新reach
     reach = Math.max(reach, i + nums[i]);
   }
+
   return reach >= len - 1;
 }
 
@@ -63,12 +74,11 @@ function jumpGameV2(nums) {
   return false;
 }
 
-
 const example1 = [2, 3, 1, 1, 4];
 const example2 = [3, 2, 1, 0, 4];
 
-debug(example1, jumpGameV1(example1));
-debug(example2, jumpGameV1(example2));
+console.log(example1, jumpGameV1(example1));
+console.log(example2, jumpGameV1(example2));
 
-debug(example1, jumpGameV2(example1));
-debug(example2, jumpGameV2(example2));
+console.log(example1, jumpGameV2(example1));
+console.log(example2, jumpGameV2(example2));

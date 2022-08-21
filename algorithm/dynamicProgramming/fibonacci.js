@@ -1,4 +1,5 @@
 /**
+ * - leetcode 509: 斐波那契数
  * 菲波那切数列，又称黄金分割数列，
  * 指的是这样的一个数列：1、1、2、3、5、8、13、21、……
  * 在数学上，菲波那切数列定义：F0=0，F1=1，Fn=F(n-1)+F(n-2)（n>=2，n∈N*）
@@ -14,11 +15,15 @@
  *    - 数组法
  */
 
-const debug = require('debug')('Fibonacci');
+/**
+ * 参考文档：
+ *   https://programmercarl.com/0509.%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0.html
+ */
 
 // 经典递归解法
 function f(n) {
   if (n === 1 || n === 2) return 1;
+
   return f(n - 1) + f(n - 2);
 }
 
@@ -37,7 +42,7 @@ function f(n) {
  */
 // 尾递归解法
 function fb(first, second, n) {
-  if (n < 1) return -1;
+  if (n < 1) return 0;
   if (n === 1) return first;
   if (n === 2) return second;
   if (n === 3) return first + second;
@@ -45,16 +50,33 @@ function fb(first, second, n) {
   return fb(second, first + second, n - 1);
 }
 
-// 非递归解法：双指针移动
-function fn(n) {
-  if (n === 1 || n === 2) return 1;
+/**
+ * 非递归解法：动态规划
+ * 时间复杂度：O(n)
+ * 空间复杂度：O(n)
+ */
+function fib(n) {
+  if (n <= 1) return n;
+
+  const arr = [0, 1];
+
+  for (let i = 2; i <= n; i++) {
+    arr[i] = arr[i - 1] + arr[i - 2];
+  }
+
+  return arr[n];
+}
+
+// 非递归解法：只需要维护两个数值就可以了，不需要记录整个序列
+function fibV2(n) {
+  if (n <= 1) return n;
 
   let result = 0;
-  let first = 1; // first指针
-  let second = 1; // second指针
+  let first = 0; // 第一项
+  let second = 1; // 第二项
 
-  // 双指针移动
-  for (let i = 3; i <= n; i++) {
+  // 两个数移动
+  for (let i = 2; i <= n; i++) {
     result = first + second;
     first = second;
     second = result;
@@ -63,15 +85,7 @@ function fn(n) {
   return result;
 }
 
-// 非递归解法：使用数组存储
-function fn2(n) {
-  if (n < 1) return -1;
-
-  const arr = [];
-  arr[0] = 1;
-  arr[1] = 1;
-  for (let i = 2; i < n; i++) {
-    arr[i] = arr[i - 1] + arr[i - 2];
-  }
-  return arr[n - 1];
-}
+// test-case
+const n = 5;
+console.log(`fib(${n}):`, fib(n));
+console.log(`fib(${n}):`, fibV2(n));

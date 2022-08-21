@@ -1,9 +1,10 @@
 /**
- * leetcode 5: 最长回文子串
+ * - leetcode 5: 最长回文子串
  * 回文是指：正着读反着读是一样的
+ *
  * 题目描述：
  *  给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000
- * 示例：
+ *
  * 示例1：
  *  输入: "babad"
  *  输出: "bab"
@@ -17,8 +18,6 @@
  *  https://leetcode-cn.com/problems/longest-palindromic-substring/comments/
  *  https://github.com/chihungyu1116/leetcode-javascript/blob/master/5%20Longest%20Palindromic%20Substring.js
  */
-
-const debug = require('debug')('longestPalindrome');
 
 /**
  * 算法思想：
@@ -82,5 +81,27 @@ function longestPalindrome(s) {
 const str1 = 'babad';
 const str2 = 'cbbad';
 
-debug('str1: ', longestPalindrome(str1));
-debug('str2: ', longestPalindrome(str2));
+console.log('str1: ', longestPalindrome(str1));
+console.log('str2: ', longestPalindrome(str2));
+
+function longestPalindromeV2(s) {
+  const dp = Array.from(Array(s.length), () => Array(s.length).fill(false));
+  let result = '';
+
+  for (let i = s.length - 1; i >= 0; i--) {
+    for (let j = i; j < s.length; j++) {
+      if (s[i] === s[j]) {
+        if (j - i <= 1 || dp[i + 1][j - 1]) {
+          result = result.length > j - i + 1 ? result : s.substr(i, j - i + 1);
+          dp[i][j] = true;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+// test-case
+console.log('longestPalindromeV2: ', longestPalindromeV2('babad'));
+console.log('longestPalindromeV2: ', longestPalindromeV2('cbbd'));

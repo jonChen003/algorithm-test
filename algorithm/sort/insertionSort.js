@@ -2,24 +2,27 @@ const debug = require('debug')('insertionSort');
 
 // 基本方法
 function insertionSort(arr) {
-  if (Array.isArray(arr)) {
-    const len = arr.length;
-    let pos;
-    let temp;
-    for (let i = 1; i < len; i++) {
-      temp = arr[i];
-      pos = i - 1;
-      while (pos >= 0 && arr[pos] > temp) {
-        arr[pos + 1] = arr[pos];
-        pos -= 1;
-      }
-      arr[pos + 1] = temp;
+  if (!Array.isArray(arr)) {
+    return new Error('arr is not an array!');
+  }
+
+  const len = arr.length;
+  let pos;
+  let temp;
+
+  for (let i = 1; i < len; i++) {
+    temp = arr[i];
+    pos = i - 1;
+
+    while (pos >= 0 && arr[pos] > temp) {
+      arr[pos + 1] = arr[pos];
+      pos -= 1;
     }
 
-    return arr;
-  } else {
-    throw new Error('arr is not an array!');
+    arr[pos + 1] = temp;
   }
+
+  return arr;
 }
 
 // 改进：查找插入位置时使用二分查找的方法

@@ -1,5 +1,6 @@
 /**
- * leetcode 70. 爬楼梯
+ * - leetcode 70. 爬楼梯
+ *
  * 题目描述：
  *  假设你正在爬楼梯。需要 n 阶你才能到达楼顶
  *  每次你可以爬 1 或 2 个台阶
@@ -21,12 +22,13 @@
  *    3.  2 阶 + 1 阶
  */
 
-const debug = require('debug')('climbStairs');
-
 /**
- * 解题思路：
+ * 算法思想：
  *  其实只要找到状态转移方程：f(n) = f(n-1) + f(n-2)
  *  类似于菲波那切数列规律
+ *
+ * 参考文档：
+ *   https://programmercarl.com/0509.%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0.html
  */
 
 // 方法一：递归法
@@ -66,12 +68,11 @@ function climbStairsV2(n) {
 }
 
 // test-case
+console.log('case1: ', climbStairs(2));
+console.log('case1: ', climbStairsV2(2));
 
-debug('case1: ', climbStairs(2));
-debug('case1: ', climbStairsV2(2));
+console.log('case2: ', climbStairs(3));
+console.log('case2: ', climbStairsV2(3));
 
-debug('case2: ', climbStairs(3));
-debug('case2: ', climbStairsV2(3));
-
-debug('case3: ', climbStairs(4));
-debug('case3: ', climbStairsV2(4));
+console.log('case3: ', climbStairs(4));
+console.log('case3: ', climbStairsV2(4));

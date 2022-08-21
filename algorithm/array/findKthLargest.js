@@ -1,5 +1,5 @@
 /**
- * leetcode 215: 数组中的第K个最大元素
+ * - leetcode 215: 数组中的第K个最大元素
  *
  * 算法描述：
  *  在未排序的数组中找到第 k 个最大的元素
@@ -16,8 +16,6 @@
  * 说明：
  *  你可以假设 k 总是有效的，且 1 ≤ k ≤ 数组的长度
  */
-
-const debug = require('debug')('findKthLargest');
 
 /**
  * 算法思想：利用快速排序中partition思想解决
@@ -95,8 +93,8 @@ function findKthLargestV2(nums, k) {
 const nums1 = [3, 2, 1, 5, 6, 4];
 const nums2 = [3, 2, 3, 1, 2, 4, 5, 5, 6];
 
-debug('result_1: ', findKthLargestV1(nums1, 2));
-debug('result_1: ', findKthLargestV2(nums1, 2));
+console.log('result_1: ', findKthLargestV1(nums1, 2));
+console.log('result_1: ', findKthLargestV2(nums1, 2));
 
-debug('result_2: ', findKthLargestV1(nums2, 4));
-debug('result_2: ', findKthLargestV2(nums2, 4));
+console.log('result_2: ', findKthLargestV1(nums2, 4));
+console.log('result_2: ', findKthLargestV2(nums2, 4));

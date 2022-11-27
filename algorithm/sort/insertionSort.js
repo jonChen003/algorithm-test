@@ -1,4 +1,6 @@
-const debug = require('debug')('insertionSort');
+/**
+ * - 插入排序
+ */
 
 // 基本方法
 function insertionSort(arr) {
@@ -7,18 +9,22 @@ function insertionSort(arr) {
   }
 
   const len = arr.length;
-  let pos;
-  let temp;
+  let pos; // 记录位置，肯定要有一个位置指针
+  let temp; // 比较过程中，要移动元素，所以要把当前元素保存下
 
+  // 1. 第一个循环：针对数组每个元素处理
   for (let i = 1; i < len; i++) {
     temp = arr[i];
     pos = i - 1;
 
+    // 2. 第二个循环：找个每个元素应该被插入的位置
     while (pos >= 0 && arr[pos] > temp) {
+      // 在比较的过程中，就可以直接把元素往后移
       arr[pos + 1] = arr[pos];
       pos -= 1;
     }
 
+    // 3. 找到位置后，在pos之后执行插入操作
     arr[pos + 1] = temp;
   }
 
@@ -55,4 +61,6 @@ function binaryInsertionSort(array) {
   }
 }
 
-debug(insertionSort([3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50, 48]));
+console.log(
+  insertionSort([3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50, 48])
+);

@@ -1,5 +1,5 @@
 /**
- * 方式一：
+ * 方式一：快速排序极简版
  * 参考文档：
  *  https://www.ruanyifeng.com/blog/2011/04/quicksort_in_javascript.html
  */
@@ -71,7 +71,7 @@ function quickSortV2(arr, left, right) {
 }
 
 /**
- * 方式三：原数组上操作，无须关注pivot在排序后的位置
+ * 方式三：原数组上操作，无须关注pivot在排序后的位置（比方法二简单，推荐）
  * 参考文档：
  *  https://javascript.ruanyifeng.com/library/sorting.html#toc12
  */
@@ -83,11 +83,13 @@ function swap(arr, i, j) {
 }
 
 function partition(arr, left, right) {
+  // 1. 确定基准值
   const pivotIndex = Math.floor((left + right) / 2);
   const pivot = arr[pivotIndex];
 
-  let i = left;
-  let j = right;
+  // 2. 双指针法，左右两边开始
+  let i = left; // 左边开始，找到比基准值小的位置
+  let j = right; // 右边开始，找到比基准值大的位置
 
   while (i <= j) {
     // 从前往后寻找比基准点大的数
@@ -103,24 +105,36 @@ function partition(arr, left, right) {
     if (i <= j) {
       // 交换两个值
       swap(arr, i, j);
+      // 交换后，指针移动
       i++;
       j--;
     }
   }
 
+  // 3. 返回分区分割点
   return i;
 }
 
+/**
+ * 快排必然使用递归的方式，在原数组操作，必然涉及到数组左右边界
+ * @param {*} arr: 数组
+ * @param {*} left: 数组左边界位置
+ * @param {*} right: 数组右边界位置
+ */
 function quickSortV3(arr, left, right) {
+  // 1. 递归终止条件
   if (arr.length < 2) return arr;
 
+  // 2. 分区操作，比基准数大的一边，比基准数小的一边，并返回分区分割点
   const partitionIndex = partition(arr, left, right);
 
   if (left < partitionIndex - 1) {
+    // 3. 对左边进行快排
     quickSortV3(arr, left, partitionIndex - 1);
   }
 
   if (partitionIndex < right) {
+    // 4. 对右边进行快排
     quickSortV3(arr, partitionIndex, right);
   }
 

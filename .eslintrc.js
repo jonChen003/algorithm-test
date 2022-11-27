@@ -19,6 +19,7 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-plusplus': 'off',
     'no-else-return': 'off',
-    'no-use-before-define': 'off'
+    'no-use-before-define': 'off',
+    'arrow-parens': 'warn'
   },
 };

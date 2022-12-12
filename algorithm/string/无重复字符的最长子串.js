@@ -1,5 +1,5 @@
 /**
- * leetcode 3: 无重复字符的最长子串
+ * - leetcode 3: 无重复字符的最长子串
  * 题目描述：
  *  给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度
  * 示例：
@@ -18,34 +18,30 @@
  *  请注意，你的答案必须是 子串 的长度，"pwke"是一个子序列，不是子串
  */
 
-const debug = require('debug')('longestNoRepeatSubstring');
-
 // 方法一：暴力解法
-function allUnique(s, start, end) {
-  const tmpArray = [];
-  for (let i = start; i <= end; i++) {
-    if (tmpArray.indexOf(s[i]) > -1) return false;
-    tmpArray.push(s[i]);
-  }
-
-  return true;
-}
-
 function lengthOfLongestSubstringV1(s) {
   const strLen = s.length;
   let maxLen = 0;
 
   for (let i = 0; i < strLen; i++) {
+    const tmp = [s[i]];
     for (let j = i + 1; j < strLen; j++) {
-      if (allUnique(s, i, j)) maxLen = Math.max(maxLen, j - i + 1);
+      if (!tmp.includes(s[j])) {
+        tmp.push(s[j]);
+      } else {
+        break;
+      }
     }
+
+    maxLen = Math.max(maxLen, tmp.length);
   }
 
   return maxLen;
 }
 
-// 方法二：滑动窗口+hashmap
 /**
+ * - 方法二：滑动窗口 + hashmap (推荐)
+ *
  * 算法思想：
  *  可以定义字符到索引的映射
  *  当我们找到重复的字符时：
@@ -55,36 +51,34 @@ function lengthOfLongestSubstringV1(s) {
 function lengthOfLongestSubstring(s) {
   if (!s || s.length === 0) return 0;
 
-  const map = {}; // key: 字符, value: 字符所处的位置
-  let len = 0; // 记录每一次遍历不重复字符长度
-  let maxLen = 0; // 记录最长的不重复字符长度
-  let start = 0; // 不重复字符串开始指针
+  const map = new Map(); // map: key是字符，value是该字符对应的位置
+  let max = 0;
+  let left = 0; // 滑动窗口开始的位置(左边界)
 
-  // 从左到右遍历
+  // i是滑动窗口右边界
   for (let i = 0; i < s.length; i++) {
     const curChar = s[i];
-    // 如果存在重复的字符，移动窗口指针，重新计算此次不重复字符长度
-    if (map[curChar] !== undefined && map[curChar] >= start) {
-      start = map[curChar] + 1;
-      len = i - start;
+    if (map.has(curChar)) {
+      // 发现有重复的字符时，需要移动变换滑动窗口的左边界
+      left = Math.max(left, map.get(curChar) + 1);
     }
 
-    len += 1;
-
-    if (len > maxLen) {
-      maxLen = len;
-    }
-    // map如果存在则更新，不存在则添加
-    map[curChar] = i;
+    // 新增或更新map
+    map.set(curChar, i);
+    // 比较滑动窗口区间长度与当前最大值的大小
+    max = Math.max(max, i - left + 1);
   }
 
-  return maxLen;
+  return max;
 }
 
 // test-case
 
-debug('case1: ', lengthOfLongestSubstringV1('abcabcbb'));
-debug('case1: ', lengthOfLongestSubstring('abcabcbb'));
+console.log('case1: ', lengthOfLongestSubstringV1('abcabcbb'));
+console.log('case1: ', lengthOfLongestSubstring('abcabcbb'));
 
-debug('case2: ', lengthOfLongestSubstringV1('pwwkew'));
-debug('case2: ', lengthOfLongestSubstring('pwwkew'));
+console.log('case1: ', lengthOfLongestSubstringV1('bbbbb'));
+console.log('case1: ', lengthOfLongestSubstring('bbbbb'));
+
+console.log('case2: ', lengthOfLongestSubstringV1('pwwkew'));
+console.log('case2: ', lengthOfLongestSubstring('pwwkew'));

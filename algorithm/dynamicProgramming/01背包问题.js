@@ -17,9 +17,15 @@
  *  https://programmercarl.com/%E8%83%8C%E5%8C%85%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%8001%E8%83%8C%E5%8C%85-1.html
  */
 
-// 二维dp数组解法（易于理解）
+/**
+ * - 二维dp数组解法（易于理解）
+ *  推导递推公式：
+ *    不放当前商品：dp[i-1][j]
+ *    放当前商品：dp[i-1][j - weight[i]] + value[i]
+ */
 function testWeightBagProblem(weight, value, bagSize) {
-  // 确定dp数组以及下标的含义，dp[i][j]: 表示从下标为[0-i]的物品里任意取，放进容量为j的背包，价值总和最大是多少
+  // 确定dp数组以及下标的含义
+  // dp[i][j]: 表示从下标为[0-i]的物品里任意取，放进容量为j的背包，价值总和最大是多少
   const dp = Array.from(Array(weight.length), () => Array(bagSize + 1).fill(0));
 
   // dp数组初始化
@@ -45,9 +51,15 @@ function testWeightBagProblem(weight, value, bagSize) {
   return dp[weight.length - 1][bagSize];
 }
 
-// 一维dp数组
+/**
+ * - 一维dp数组
+ *  推导递推公式：
+ *    不放当前商品：dp[j]
+ *    放当前商品：dp[j - weight[i]] + value[i]
+ */
 function testWeightBagProblemV2(weight, value, bagSize) {
-  // 确定dp数组以及下标的含义，dp[j]: 容量为j的背包，所背的物品价值可以最大为dp[j]
+  // 确定dp数组以及下标的含义
+  // dp[j]: 容量为j的背包，所背的物品价值可以最大为dp[j]
   const dp = Array(bagSize + 1).fill(0);
 
   // 确定遍历顺序：先遍历物品，再遍历背包容量
@@ -65,8 +77,8 @@ function testWeightBagProblemV2(weight, value, bagSize) {
 }
 
 // test-case
-const weight = [1, 3, 4];
-const value = [15, 20, 30];
+const weight = [1, 4, 3];
+const value = [15, 30, 20];
 const size = 4;
 
 console.log('maxValue: ', testWeightBagProblem(weight, value, size));

@@ -30,13 +30,13 @@
  * 下面主要采用中心扩展法解决该问题
  */
 
-// 中心扩展法，复杂度O(n^2)
 /**
- * 算法主要思想：
- * 回文就是中心对称的单词
- * 从字符的中心开始，向两边扩散检查回文
- * 这里需要维护一个指针，从头开始，以每一个位置为中心遍历一遍
- * 注意：回文需要同时检测单核‘aba’以及双核'abba'的情况
+ * - 中心扩展法，复杂度O(n^2)
+ *  算法主要思想：
+ *    回文就是中心对称的单词
+ *    从字符的中心开始，向两边扩散检查回文
+ *    这里需要维护一个指针，从头开始，以每一个位置为中心遍历一遍
+ *    注意：回文需要同时检测单核‘aba’以及双核'abba'的情况
  */
 
 function checkPalindrome(s, left, right) {
@@ -84,12 +84,21 @@ const str2 = 'cbbad';
 console.log('str1: ', longestPalindrome(str1));
 console.log('str2: ', longestPalindrome(str2));
 
+/**
+ * - 动态递归方法（推荐）
+ * dp[i][j] 来判断[i, j]之间的字符是否是回文子串
+ */
 function longestPalindromeV2(s) {
+  // 确定dp数组以及下标的含义
+  // dp表示区间范围[i,j]的子串是否是回文子串，如果是回文子串，dp[i][j]为true，否则为false
+  // i和j分别代表字符索引
   const dp = Array.from(Array(s.length), () => Array(s.length).fill(false));
   let result = '';
 
+  // 确定遍历顺序：从下到上，从左到右
   for (let i = s.length - 1; i >= 0; i--) {
     for (let j = i; j < s.length; j++) {
+      // 确定递推公式
       if (s[i] === s[j]) {
         if (j - i <= 1 || dp[i + 1][j - 1]) {
           result = result.length > j - i + 1 ? result : s.substr(i, j - i + 1);

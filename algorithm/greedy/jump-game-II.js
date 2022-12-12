@@ -72,6 +72,7 @@ function jumpGameII_V2(nums) {
 }
 
 /**
+ * (推荐)
  * 维护两个指针left和right
  * left：记录当前位置可到达的左边界
  * right：记录当前位置可到达的右边界
@@ -82,6 +83,7 @@ function jumpGameV1(nums) {
   let left = 0;
   let right = 0;
 
+  // 注意循环的边界条件，这里right < len - 1
   while (right < len - 1) {
     let maxBound = right;
     for (let i = left; i <= right; i++) {

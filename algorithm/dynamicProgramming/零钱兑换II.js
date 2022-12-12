@@ -32,6 +32,7 @@ function coinChangeII(coins, amount) {
   for (let i = 0; i < coins.length; i++) {
     for (let j = coins[i]; j <= amount; j++) {
       // 确定递推公式
+      // 加入该硬币和不加入该硬币两种方式
       dp[j] += dp[j - coins[i]];
     }
   }

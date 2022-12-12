@@ -20,6 +20,7 @@ module.exports = {
     'no-plusplus': 'off',
     'no-else-return': 'off',
     'no-use-before-define': 'off',
-    'arrow-parens': 'warn'
+    'arrow-parens': 'warn',
+    'no-tabs': 'off'
   },
 };

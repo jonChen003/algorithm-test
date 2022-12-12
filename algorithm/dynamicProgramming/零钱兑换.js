@@ -18,6 +18,10 @@
  *  https://programmercarl.com/0322.%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2.html
  */
 
+/**
+ * 每种硬币的数量是无限的，可以看出是典型的完全背包问题
+ */
+
 function coinChange(coins, amount) {
   // 确定dp数组以及下标的含义，dp[j]: 凑足总额为j所需钱币的最少个数为dp[j]
   const dp = Array(amount + 1).fill(Infinity);
@@ -25,6 +29,7 @@ function coinChange(coins, amount) {
 
   for (let i = 0; i < coins.length; i++) {
     for (let j = coins[i]; j <= amount; j++) {
+      // 如果dp[j - coins[i]]是初始值则跳过
       if (dp[j - coins[i]] !== Infinity) {
         // 确定递推公式
         dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);

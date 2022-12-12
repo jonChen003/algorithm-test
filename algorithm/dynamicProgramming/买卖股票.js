@@ -17,7 +17,57 @@
 
 /**
  * 参考文档：
- *  https://programmercarl.com/0322.%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2.html
+ * 	https://programmercarl.com/0121.%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA.html#%E6%80%9D%E8%B7%AF
  */
 
-function maxProfit(prices) {}
+/**
+ * - 贪心算法（推荐）
+ *	算法思想：
+ *		最左最小值，取最右最大值，那么得到的差值就是最大利润
+ */
+function maxProfit(prices) {
+  let result = 0;
+  let min = prices[0];
+
+  for (let i = 1; i < prices.length; i++) {
+    min = Math.min(prices[i], min); // 取最左最小价格
+
+    result = Math.max(prices[i] - min, result); // 直接取最大区间利润
+  }
+
+  return result;
+}
+
+/**
+ * - 动态规划
+ * 	当天持有 dp[i][0]
+ * 		递推公式：dp[i][0] = max(dp[i-1][0], -prices[i])
+ * 	当天不持有 dp[i][1]
+ * 		递推公式：dp[i][1] = max(dp[i-1][1], prices[i] + dp[i-1][0])
+ */
+function maxProfitV2(prices) {
+  const len = prices.length;
+  // 确定dp数组（dp table）以及下标的含义
+  // dp[i][0] 表示第i天持有股票所得最多现金
+  // dp[i][1] 表示第i天不持有股票所得最多现金
+  const dp = Array(len).fill([0, 0]);
+
+  // dp数组初始化
+  dp[0] = [-prices[0], 0];
+
+  // 确定遍历顺序
+  for (let i = 1; i < len; i++) {
+    // 确定递推公式
+    dp[i] = [
+      Math.max(dp[i - 1][0], -prices[i]),
+      Math.max(dp[i - 1][1], prices[i] + dp[i - 1][0]),
+    ];
+  }
+
+  return dp[len - 1][1];
+}
+
+// test-case
+const prices = [7, 1, 5, 3, 6, 4];
+console.log('maxProfit---', maxProfit(prices));
+console.log('maxProfit---', maxProfitV2(prices));

@@ -21,6 +21,7 @@ module.exports = {
     'no-else-return': 'off',
     'no-use-before-define': 'off',
     'arrow-parens': 'warn',
-    'no-tabs': 'off'
+    'no-tabs': 'off',
+    'comma-dangle': 'off'
   },
 };

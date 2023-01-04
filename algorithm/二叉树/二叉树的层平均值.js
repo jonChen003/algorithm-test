@@ -1,5 +1,5 @@
 /**
- * leetcode 637: 二叉树的层平均值
+ * - leetcode 637: 二叉树的层平均值
  * 题目描述：
  *  给定一个非空二叉树, 返回一个由每层节点平均值组成的数组
  *
@@ -19,9 +19,7 @@
  * 解题思路：二叉树的广度遍历，维护一个队列
  */
 
-import BST from '../../lib/tree';
-
-const debug = require('debug')('averageOfLevels');
+const { BST } = require('../../lib/tree');
 
 function averageOfLevelsV1(root) {
   if (root === null) return 0;
@@ -84,5 +82,5 @@ tree.insert(45);
 tree.insert(15);
 tree.insert(3);
 
-debug('result: ', averageOfLevelsV1(tree.root));
-debug('result: ', averageOfLevelsV2(tree.root));
+console.log('result: ', averageOfLevelsV1(tree.root));
+console.log('result: ', averageOfLevelsV2(tree.root));

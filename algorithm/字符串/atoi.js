@@ -1,5 +1,5 @@
 /**
- * leetcode 8: 字符串转换整数
+ * - leetcode 8: 字符串转换整数
  * 题目描述：
  *  实现一个 atoi 函数，使其能将字符串转换成整数
  * 备注：
@@ -54,7 +54,7 @@ function myAtoi(str) {
     } else break;
   }
 
-  const maxInt = (2 ** 31) - 1;
+  const maxInt = 2 ** 31 - 1;
   const minNegInt = -(2 ** 31);
   num *= sign;
 

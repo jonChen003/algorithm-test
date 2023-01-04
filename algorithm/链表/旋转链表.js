@@ -1,5 +1,5 @@
 /**
- * leetcode 61: 旋转链表
+ * - leetcode 61: 旋转链表
  * 题目描述：
  *  给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数
  *
@@ -21,11 +21,7 @@
  *  向右旋转 4 步: 2->0->1->NULL
  */
 
-import SinglyList, {
-  printSinglyList,
-} from '../../lib/singlyList';
-
-const debug = require('debug')('rotateLinkedList');
+const { SinglyList, printSinglyList } = require('../../lib/singlyList');
 
 /**
  * 算法思路：
@@ -35,30 +31,31 @@ const debug = require('debug')('rotateLinkedList');
  */
 function rotateRight(head, k) {
   if (head === null || k <= 0) return head;
-  let cursor = head;
+
+  let current = head;
   let tail = null;
   let length = 1;
 
-  // 移动cursor指针到尾节点，并获取链表总长度
-  while (cursor.next !== null) {
-    cursor = cursor.next;
+  // 移动current指针到尾节点，并获取链表总长度
+  while (current.next !== null) {
+    current = current.next;
     length += 1;
   }
 
   // 改成循环链表
-  tail = cursor;
+  tail = current;
   tail.next = head;
-  cursor = head;
+  current = head;
 
   // 找到新的头节点和尾节点
-  const loop = length - (k % length);
-  for (let i = 0; i < loop; i++) {
-    cursor = cursor.next;
+  let step = length - (k % length);
+  while (step--) {
+    current = current.next;
     tail = tail.next;
   }
 
   tail.next = null;
-  return cursor;
+  return current;
 }
 
 // test-case
@@ -68,7 +65,7 @@ list.append(2);
 list.append(3);
 list.append(4);
 list.append(5);
-debug('originList: ', printSinglyList(list.head));
+console.log('originList: ', printSinglyList(list.head));
 
 const result = rotateRight(list.head, 2);
-debug('rotateList: ', printSinglyList(result));
+console.log('rotateList: ', printSinglyList(result));

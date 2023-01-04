@@ -22,7 +22,7 @@
 
 const { SinglyList, printSinglyList } = require('../../lib/singlyList');
 
-// 方式一：双指针法(推荐)
+/// 方式一：双指针法(推荐)
 function reverseList(head) {
   let cur = head;
   let pre = null;
@@ -41,7 +41,7 @@ function reverseList(head) {
   return pre;
 }
 
-// 方式二：递归法
+/// 方式二：递归法
 function reverse(pre, cur) {
   if (cur === null) return pre;
 

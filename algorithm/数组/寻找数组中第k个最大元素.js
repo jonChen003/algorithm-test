@@ -23,7 +23,7 @@
  * 方式二：考虑空间复杂度，在原数组上操作
  */
 
-// 方式一：不考虑空间复杂度，新增辅助空间
+/// 方式一：不考虑空间复杂度，新增辅助空间
 function findKthLargestV1(nums, k) {
   const smaller = [];
   const larger = [];
@@ -50,7 +50,7 @@ function findKthLargestV1(nums, k) {
   }
 }
 
-// 方式二：考虑时间复杂度，在原数组上操作
+/// 方式二：考虑时间复杂度，在原数组上操作
 function swap(arr, i, j) {
   const temp = arr[i];
   arr[i] = arr[j];

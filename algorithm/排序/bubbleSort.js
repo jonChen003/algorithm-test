@@ -8,19 +8,19 @@
  *    3、第一层用while，主要是记录每一轮终止的位置，第二层用for，在终止的位置前按个比较交换
  */
 function bubbleSort(arr) {
-  let i = arr.length - 1; // 代表每一轮终止的位置
-  let pos; // 用于优化
+  let lastPos = arr.length - 1; // 代表每一轮终止的位置
+  let tempPos; // 用于优化
   let temp;
 
-  while (i > 0) {
+  while (lastPos > 0) {
     // 每次置为0，因为一轮下来都没有发生交换，那就表示后面都是有序的，不用再遍历了
-    pos = 0;
+    tempPos = 0;
 
     // 在终止位置前进行比较和交换
-    for (let j = 0; j < i; j++) {
+    for (let j = 0; j < lastPos; j++) {
       if (arr[j] > arr[j + 1]) {
         // 记录发生交换的最后位置
-        pos = j;
+        tempPos = j;
         // 交换位置
         temp = arr[j];
         arr[j] = arr[j + 1];
@@ -28,12 +28,12 @@ function bubbleSort(arr) {
       }
     }
 
-    i = pos;
+    lastPos = tempPos;
   }
 
   return arr;
 }
 
 console.log(
-  bubbleSort([3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50, 48]),
+  bubbleSort([3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50, 48])
 );

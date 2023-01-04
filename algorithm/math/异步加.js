@@ -21,23 +21,23 @@ function asyncAdd(a, b, callback) {
   setTimeout(() => callback(null, res), 100);
 }
 
-/// 方法一
+/// 方法一：实现类似generator的功能
 function sum(...args) {
   return new Promise((resolve, reject) => {
     let s = 0;
 
-    function add(i) {
+    function next(i) {
       asyncAdd(s, args[i], (_, result) => {
         if (i < args.length) {
           s = result;
-          add(i + 1);
+          next(i + 1);
         } else {
           resolve(s);
         }
       });
     }
 
-    add(0);
+    next(0);
   });
 }
 

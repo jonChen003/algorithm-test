@@ -25,6 +25,8 @@
 
 /**
  * 实现思想：单纯利用map堪称完美方案
+ *  1. 把最新鲜的放到map最后：先delete再set
+ *  2. cache满的时候，删除map最前面的元素
  */
 const LRUCache = function (capacity) {
   this.capacity = capacity;
@@ -41,11 +43,13 @@ LRUCache.prototype.get = function (key) {
 };
 
 LRUCache.prototype.put = function (key, value) {
+  // 每次put时，也就是最新鲜的放到最后
   if (this.map.has(key)) {
     this.map.delete(key);
   }
   this.map.set(key, value);
-  const keys = this.map.keys();
+
+  const keys = this.map.keys(); // keys()返回一个迭代器对象，通过next来访问
   while (this.map.size > this.capacity) {
     // cache满的时候，删除最前面的元素
     this.map.delete(keys.next().value);

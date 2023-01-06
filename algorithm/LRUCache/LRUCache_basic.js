@@ -2,15 +2,12 @@
  * leetcode 146: LRU缓存机制
  */
 
-import {
-  DlinkedList,
-  DlinkedNode,
-} from './DlinkedList';
-
-const debug = require('debug')('LRUCache');
+const { DlinkedList, DlinkedNode } = require('./DlinkedList');
 
 /**
  * 实现思想：基于HashMap和双向循环链表实现LRU
+ *  双向循环列表头节点指向最新鲜节点
+ *  cache满的时候，删除双向循环尾部节点
  */
 const LRUCache = function (capacity) {
   this.capacity = capacity;

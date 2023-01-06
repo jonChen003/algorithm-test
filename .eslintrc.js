@@ -24,5 +24,6 @@ module.exports = {
     'no-tabs': 'off',
     'comma-dangle': 'off',
     'operator-linebreak': 'off',
+    'prefer-template': 'warn'
   },
 };

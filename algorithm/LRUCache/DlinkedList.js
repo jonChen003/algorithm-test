@@ -51,7 +51,7 @@ DlinkedList.prototype.print = function () {
   return arr.join('->');
 };
 
-export {
+module.exports = {
   DlinkedList,
   DlinkedNode,
 };

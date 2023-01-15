@@ -32,7 +32,11 @@ function permute(inputNums) {
   backtrack(inputNums, []);
   return resArr;
 
-  // 1. 确定回溯函数入参
+  /**
+   * 1. 确定回溯函数入参
+   * @param {*} nums: 输入的数组，inputNums
+   * @param {*} path: 当前收集的路径
+   */
   function backtrack(nums, path) {
     // 2. 确定终止条件
     if (nums.length === path.length) {

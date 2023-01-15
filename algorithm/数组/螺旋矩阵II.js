@@ -7,7 +7,18 @@
  * 示例1：
  *  输入：n = 3
  *  输出：[[1,2,3],[8,9,4],[7,6,5]]
+ *  1 2 3
+ *  8 9 4
+ *  7 6 5
+ *
  * 示例2：
+ *  输入：n = 4
+ *  1  2  3  4
+ * 12 13  14 5
+ * 11 16  15 6
+ * 10  9  8  7
+ *
+ * 示例3：
  *  输入：n = 1
  *  输出：[[1]]
  */
@@ -30,8 +41,6 @@
 function generateMatrix(n) {
   // 定义一个二维数组
   const res = new Array(n).fill(0).map(() => new Array(n).fill(0));
-  // 矩阵中间的位置，例如：n为3， 中间的位置就是(1，1)，n为5，中间位置为(2, 2)
-  const mid = Math.floor(n / 2);
   // 定义每循环一个圈的起始位置
   let startX = 0;
   let startY = 0;
@@ -42,6 +51,7 @@ function generateMatrix(n) {
   // 用来给矩阵中每一个空格赋值
   let count = 1;
 
+  // 外层循环，按圈循环
   while (loop--) {
     let row = startX;
     let col = startY;
@@ -76,6 +86,8 @@ function generateMatrix(n) {
   }
 
   // 如果n为奇数的话，需要单独给矩阵最中间的位置赋值
+  // 矩阵中间的位置，例如：n为3， 中间的位置就是(1，1)，n为5，中间位置为(2, 2)
+  const mid = Math.floor(n / 2);
   if (n % 2 === 1) {
     res[mid][mid] = count;
   }

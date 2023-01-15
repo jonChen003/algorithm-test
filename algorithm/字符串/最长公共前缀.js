@@ -1,5 +1,5 @@
 /**
- * leetcode 14: 最长公共前缀
+ * - leetcode 14: 最长公共前缀
  * 题目描述：
  *  编写一个函数来查找字符串数组中的最长公共前缀
  *  如果不存在公共前缀，返回空字符串 ""
@@ -12,8 +12,6 @@
  *  输出: ""
  *  解释: 输入不存在公共前缀
  */
-
-const debug = require('debug')('longestCommonPrefix');
 
 /**
  * @param {string[]} strs
@@ -46,5 +44,5 @@ function longestCommonPrefix(strs) {
 const strs1 = ['flower', 'flow', 'flight'];
 const strs2 = ['dog', 'racecar', 'car'];
 
-debug('strs1: ', longestCommonPrefix(strs1));
-debug('strs2: ', longestCommonPrefix(strs2));
+console.log('strs1: ', longestCommonPrefix(strs1));
+console.log('strs2: ', longestCommonPrefix(strs2));

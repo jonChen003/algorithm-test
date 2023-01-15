@@ -1,13 +1,11 @@
 /**
- * leetcode 11: 盛最多水的容器
+ * - leetcode 11: 盛最多水的容器
+ *
  * 题目描述：
- *  给定 n 个非负整数 a1，a2，...，an
- *  每个数代表坐标中的一个点(i, ai)，在坐标内画 n 条垂直线
- *  垂直线i的两个端点分别为(i, ai) 和 (i, 0)
- *  找出其中的两条线，使得它们与x轴共同构成的容器可以容纳最多的水
+ *  给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
+ *  找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+ *  返回容器可以储存的最大水量
  */
-
-const debug = require('debug')('maxArea');
 
 /**
  * 算法思想：
@@ -31,7 +29,7 @@ function maxAreaV1(height) {
   return maxArea;
 }
 
-// 方法二：双指针法
+// 方法二：双指针法（首尾指针）
 /**
  * 使用双指针，一个放在开始，一个置于末尾
  * 两个指针对应的线段比较，移动矮的指针
@@ -47,7 +45,7 @@ function maxAreaV2(height) {
   while (left < right) {
     maxArea = Math.max(
       maxArea,
-      Math.min(height[left], height[right]) * (right - left),
+      Math.min(height[left], height[right]) * (right - left)
     );
     if (height[left] < height[right]) {
       left += 1;
@@ -60,5 +58,5 @@ function maxAreaV2(height) {
 }
 
 // test-case
-debug('case1: ', maxAreaV1([1, 8, 6, 2, 5, 4, 8, 3, 7]));
-debug('case1: ', maxAreaV2([1, 8, 6, 2, 5, 4, 8, 3, 7]));
+console.log('case1: ', maxAreaV1([1, 8, 6, 2, 5, 4, 8, 3, 7]));
+console.log('case1: ', maxAreaV2([1, 8, 6, 2, 5, 4, 8, 3, 7]));

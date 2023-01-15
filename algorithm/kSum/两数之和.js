@@ -1,5 +1,5 @@
 /**
- * leetcode 1: 两数之和
+ * - leetcode 1: 两数之和
  * 题目描述：
  *  给定一个整数数组 nums 和一个目标值 target
  *  请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。
@@ -11,10 +11,8 @@
  *  所以返回 [0, 1]
  */
 
-const debug = require('debug')('twoSum');
-
 // 方法一：使用哈希表
-function twoSumV1(nums, target) {
+function twoSum(nums, target) {
   const result = [];
   if (!nums || nums.length < 2) {
     return null;
@@ -35,9 +33,7 @@ function twoSumV1(nums, target) {
 
 // 方法二：先对数组进行排序，然后用夹边方法找出满足条件的pair
 
-
 // test-case
-const nums = [2, 7, 11, 15];
-const target = 9;
 
-debug('result: ', twoSumV1(nums, target));
+console.log('result: ', twoSum([2, 7, 11, 15], 9));
+console.log('result: ', twoSum([2, 7, 11, 15], 18));

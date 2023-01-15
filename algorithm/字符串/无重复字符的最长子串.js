@@ -40,7 +40,7 @@ function lengthOfLongestSubstringV1(s) {
 }
 
 /**
- * - 方法二：滑动窗口 + hashmap (推荐)
+ * - 方法二：滑动窗口(双指针) + hashmap (推荐)
  *
  * 算法思想：
  *  可以定义字符到索引的映射

@@ -1,13 +1,16 @@
 /**
- * 找出字符串中的最长数字连续子串
+ * - 找出字符串中的最长数字连续子串
  * 题目描述：
  *  给出一个字符串作为输入，找出其中最长的连续数字串并返回其长度和起始index
  *  如果存在长度相同的连续数字串，返回最后一个连续数字串。
  *  如果没有，返回0和0
+ *
+ * 示例：
+ *  输入：a1234b457
+ *  输出：[1, 4]，最长连续数字串是1234，起始index:1, 长度为4
+ *
  * 参考链接：https://www.jianshu.com/p/b4dfc225dc77
  */
-
-const debug = require('debug')('LNumberSubstring');
 
 // 方法一：基础解法-空间复杂度为O(n)
 /**
@@ -22,23 +25,23 @@ function findLongestNumberSubstringV1(str) {
 
   const strLen = str.length;
   let index = 0;
-  // 遍历字符串
+  // 1. 外层循环遍历字符串
   while (index < strLen) {
     const tmpArray = [];
-    // 寻找数字串
+    // 2. 内层循环寻找数字串
     while (index < strLen && /\d/.test(str.charAt(index))) {
       tmpArray.push(str.charAt(index));
       index += 1;
     }
 
-    // 判断是否需要更新结果数组
+    // 3. 判断是否需要更新结果数组
     const tmpArrLen = tmpArray.length;
     if (tmpArrLen && tmpArrLen >= result[1]) {
       result[0] = index - tmpArrLen;
       result[1] = tmpArrLen;
     }
 
-    // 指针继续往前走
+    // 4. 指针继续往前走
     index += 1;
   }
 
@@ -92,5 +95,5 @@ function findLongestNumberSubstringV2(str) {
 // test-case
 const str1 = 'a1234b457';
 
-debug('result: ', findLongestNumberSubstringV1(str1));
-debug('result: ', findLongestNumberSubstringV2(str1));
+console.log('result: ', findLongestNumberSubstringV1(str1));
+console.log('result: ', findLongestNumberSubstringV2(str1));

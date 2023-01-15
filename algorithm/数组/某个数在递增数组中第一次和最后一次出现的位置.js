@@ -1,5 +1,5 @@
 /**
- * leetcode: 某个数在递增数组中第一次和最后一次出现的位置
+ * - leetcode 34. 某个数在递增数组中第一次和最后一次出现的位置
  * 例如：
  * 给定一个递增数组：[5, 7, 7, 8, 8, 10]，目标元素：8
  * 返回：[3, 4]
@@ -15,61 +15,60 @@
  * 有可能middle前面和后面也都是等于target的位置
  */
 
-const debug = require('debug')('searchTargetValue');
-
 // 某个数在递增数组中第一次出现的位置
 function searchFirstTargetValue(nums, target) {
+  // 左闭右闭区间
   let left = 0;
   let right = nums.length - 1;
-  while (left < right) {
-    const middle = Math.floor((left + right) / 2);
-    if (nums[middle] < target) {
+  let pos = -1;
+
+  // 当left=right时，由于nums[right]在查找范围内，所以要包括此情况
+  while (left <= right) {
+    // 这里注意middle的计算
+    const middle = left + Math.floor((right - left) / 2);
+
+    if (nums[middle] > target) {
+      // 去左面闭区间寻找
+      right = middle - 1;
+    } else if (nums[middle] < target) {
+      // 去右面闭区间寻找
       left = middle + 1;
     } else {
-      right = middle;
-    }
-
-    if (nums[left] === target) {
-      break;
-    } else {
-      left += 1;
+      pos = middle;
+      right = middle - 1;
     }
   }
 
-  if (left < nums.length && nums[left] === target) {
-    return left;
-  } else {
-    return -1;
-  }
+  return pos;
 }
 
-// 某个数在递增数组中最后一次出现的位置
 function searchLastTargetValue(nums, target) {
+  // 左闭右闭区间
   let left = 0;
   let right = nums.length - 1;
-  while (left < right) {
-    const middle = Math.floor((left + right) / 2);
+  let pos = -1;
+
+  // 当left=right时，由于nums[right]在查找范围内，所以要包括此情况
+  while (left <= right) {
+    // 这里注意middle的计算
+    const middle = left + Math.floor((right - left) / 2);
+
     if (nums[middle] > target) {
+      // 去左面闭区间寻找
       right = middle - 1;
+    } else if (nums[middle] < target) {
+      // 去右面闭区间寻找
+      left = middle + 1;
     } else {
-      left = middle;
-    }
-
-    if (nums[right] === target) {
-      break;
-    } else {
-      right -= 1;
+      pos = middle;
+      left = middle + 1;
     }
   }
 
-  if (right >= 0 && nums[right] === target) {
-    return right;
-  } else {
-    return -1;
-  }
+  return pos;
 }
 
 const testNums = [1, 1, 2, 3, 4, 4, 5, 6, 6];
 
-debug('search-first-target: ', searchFirstTargetValue(testNums, 4));
-debug('search-last-target: ', searchLastTargetValue(testNums, 4));
+console.log('search-first-target: ', searchFirstTargetValue(testNums, 4));
+console.log('search-last-target: ', searchLastTargetValue(testNums, 4));

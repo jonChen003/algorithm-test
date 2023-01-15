@@ -1,5 +1,5 @@
 /**
- * leetcode 17: 电话号码的字母组合
+ * - leetcode 17: 电话号码的字母组合
  * 题目描述：
  *  给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合
  *  给出数字到字母的映射（与电话按键相同）。注意 1 不对应任何字母
@@ -7,8 +7,6 @@
  *  输入："23"
  *  输出：["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
  */
-
-const debug = require('debug')('letterCombinations');
 
 const numToLetters = {
   0: ' ',
@@ -28,15 +26,20 @@ function letterCombinations(digits) {
 
   if (!digits || digits.length === 0) return result;
 
-  function dfs(str, curLen, curStr) {
-    if (str.length === curLen) {
-      result.push(curStr);
+  /**
+   * @param {*} digitStr: 输入的数字字符串
+   * @param {*} curLen: 收集的长度
+   * @param {*} curLetterStr: 收集到的英文字符
+   */
+  function dfs(digitStr, curLen, curLetterStr) {
+    if (digitStr.length === curLen) {
+      result.push(curLetterStr);
       return;
     }
 
-    const letters = numToLetters[str[curLen]];
+    const letters = numToLetters[digitStr[curLen]];
     for (let i = 0; i < letters.length; i++) {
-      dfs(str, curLen + 1, curStr + letters[i]);
+      dfs(digitStr, curLen + 1, curLetterStr + letters[i]);
     }
   }
 
@@ -46,4 +49,4 @@ function letterCombinations(digits) {
 
 // test-case
 
-debug('case1: ', letterCombinations('23'));
+console.log('input-23: ', letterCombinations('23'));

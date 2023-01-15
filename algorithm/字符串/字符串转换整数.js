@@ -1,5 +1,6 @@
 /**
  * - leetcode 8: 字符串转换整数
+ *
  * 题目描述：
  *  实现一个 atoi 函数，使其能将字符串转换成整数
  * 备注：
@@ -36,7 +37,7 @@ function myAtoi(str) {
   let sign = 1;
   str = str.trim();
 
-  // 判断首字母是不是+/-号
+  // 1. 判断首字母是不是+/-号
   if (str[0] === '+' || str[0] === '-') {
     if (str[0] === '-') {
       sign = -1;
@@ -44,7 +45,7 @@ function myAtoi(str) {
     str = str.substring(1);
   }
 
-  // 遍历转化
+  // 2. 遍历转化
   for (let i = 0; i < str.length; i++) {
     const curChar = str[i];
     const curNum = curChar.charCodeAt(0) - baseCharCode;
@@ -54,6 +55,7 @@ function myAtoi(str) {
     } else break;
   }
 
+  // 3. 处理最大最小边界情况
   const maxInt = 2 ** 31 - 1;
   const minNegInt = -(2 ** 31);
   num *= sign;
@@ -63,3 +65,9 @@ function myAtoi(str) {
 
   return num;
 }
+
+// test-case
+console.log('res: ', myAtoi('42'));
+console.log('res: ', myAtoi('-42'));
+console.log('res: ', myAtoi('aaa1111'));
+console.log('res: ', myAtoi('1111aaa'));

@@ -19,6 +19,7 @@
  * 推导递推公式：
  * 	第i行第j列为右下角的正方形边长由：左上角、左边、上边三个因素来推导
  */
+// - 二维dp数组，双层循环
 function maximalSquare(matrix) {
   const m = matrix.length;
   const n = matrix[0].length;

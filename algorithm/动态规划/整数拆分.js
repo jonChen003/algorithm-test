@@ -20,7 +20,7 @@
 /**
  * 拆分一个数n 使之乘积最大，那么一定是拆分m个成近似相同的子数相乘才是最大的
  */
-
+// - 一维dp数组，双层循环
 function integerBreak(n) {
   // dp[i]：分拆数字i，可以得到的最大乘积为dp[i]
   const dp = new Array(n + 1).fill(0);

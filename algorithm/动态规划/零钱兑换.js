@@ -22,7 +22,7 @@
  * 每种硬币的数量是无限的，可以看出是典型的完全背包问题
  */
 
-// - 双层循环：先遍历coins数组，再遍历金额
+// - 一维dp数组，双层循环：先遍历coins数组，再遍历金额
 function coinChange(coins, amount) {
   // 确定dp数组以及下标的含义，dp[j]: 凑足总额为j所需钱币的最少个数为dp[j]
   const dp = Array(amount + 1).fill(Infinity);

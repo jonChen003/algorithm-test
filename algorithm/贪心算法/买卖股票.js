@@ -45,6 +45,7 @@ function maxProfit(prices) {
  * 	当天不持有 dp[i][1]
  * 		递推公式：dp[i][1] = max(dp[i-1][1], prices[i] + dp[i-1][0])
  */
+// - 单层循环，遍历prices数组
 function maxProfitV2(prices) {
   const len = prices.length;
   // 确定dp数组（dp table）以及下标的含义

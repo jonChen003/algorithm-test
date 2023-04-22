@@ -22,6 +22,7 @@
  *  一维dp数组的递推公式跟01背包问题是一样的
  *  所不同的是遍历顺序，也就是允不允许添加多个
  */
+// - 双层循环：先遍历物品，再遍历背包
 function testCompletePack(weight, value, bagSize) {
   // 确定dp数组以及下标的含义，dp：容量为j的背包，所背的物品价值可以最大为dp[j]
   const dp = Array(bagSize + 1).fill(0);

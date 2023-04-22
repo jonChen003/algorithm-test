@@ -34,7 +34,7 @@ function testWeightBagProblem(weight, value, bagSize) {
   }
 
   // weight数组的大小 就是物品个数
-  // 确定遍历顺序
+  // 确定遍历顺序：先遍历物品，再遍历背包容量
   for (let i = 1; i < weight.length; i++) {
     for (let j = 0; j <= bagSize; j++) {
       // 确定递推公式

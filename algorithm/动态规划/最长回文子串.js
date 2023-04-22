@@ -35,10 +35,11 @@
  *  算法主要思想：
  *    回文就是中心对称的单词
  *    从字符的中心开始，向两边扩散检查回文
- *    这里需要维护一个指针，从头开始，以每一个位置为中心遍历一遍
+ *    从头开始，以每一个位置为中心遍历一遍
  *    注意：回文需要同时检测单核‘aba’以及双核'abba'的情况
  */
 
+// 双指针法
 function checkPalindrome(s, left, right) {
   while (left >= 0 && right < s.length && s[left] === s[right]) {
     left -= 1;
@@ -58,7 +59,7 @@ function longestPalindrome(s) {
   let left = 0;
   let right = 0;
 
-  // 维护一个指针，从头开始，以每一个位置为中心遍历一遍
+  // 从头开始，以每一个位置为中心遍历一遍
   for (let i = 0; i < len; i++) {
     left = i;
     right = i;
@@ -85,8 +86,12 @@ console.log('str1: ', longestPalindrome(str1));
 console.log('str2: ', longestPalindrome(str2));
 
 /**
- * - 动态递归方法（推荐）
- * dp[i][j] 来判断[i, j]之间的字符是否是回文子串
+ * - 动态规划方法（推荐）
+ * dp[i][j] 来判断[i, j]之间的字符是否是回文子串，值为boolean
+ * 递推公式：
+ *  dp[i][j]取值：
+ *    1、s[i] === s[j]
+ *    2、dp[i + 1]dp[j - 1]值为true，也就是i + 1 ~ j - 1之间的字符也应该是回文子串
  */
 function longestPalindromeV2(s) {
   // 确定dp数组以及下标的含义

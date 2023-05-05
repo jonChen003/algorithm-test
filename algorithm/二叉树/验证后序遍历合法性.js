@@ -4,6 +4,7 @@
  * 	2.子树也是必须满足「条件1」
  */
 
+// 递归 + 划分
 function verifyPostOrder(postOrder) {
   if (postOrder.length <= 1) {
     return true;

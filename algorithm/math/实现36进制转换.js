@@ -19,4 +19,7 @@ function numToChar(num) {
   return num < 10 ? num : String.fromCharCode(97 + (num - 10));
 }
 
-console.log('res: ', numTo36(35));
+console.log('res: ', numTo36(35)); // z
+console.log('res: ', numTo36(37)); // 11
+console.log('res: ', numTo36(38)); // 12
+console.log('res: ', numTo36(72)); // 20

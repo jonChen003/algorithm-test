@@ -21,6 +21,7 @@
 
 const { BST } = require('../../lib/tree');
 
+// 二叉树的广度优先遍历（推荐）
 function averageOfLevelsV1(root) {
   if (root === null) return 0;
   const result = [];

@@ -30,8 +30,8 @@ function longestCommonPrefix(strs) {
 
     // 依次对比其他字符串中的相应字符
     for (let j = 1; j < len; j++) {
+      if (i > strs[j].length - 1) return result;
       if (curChar !== strs[j][i]) return result;
-      if (strs[j].length === i) return result;
     }
 
     result += curChar;

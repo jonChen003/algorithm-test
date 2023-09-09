@@ -21,6 +21,7 @@
 const { SinglyList, Node, printSinglyList } = require('../../lib/singlyList');
 
 /**
+ * 方式1： 使用虚拟头结点（推荐）
  * 时间复杂度：O(n)
  * 空间复杂度：O(1)
  */
@@ -49,6 +50,32 @@ function swapPairs(head) {
   }
 
   return dummyHead.next;
+}
+
+/**
+ * 方式2：不使用虚拟头结点的方式（不推荐）
+ */
+function swapPairsV2(head) {
+  let cur = head;
+  let pre = null;
+
+  while (cur && cur.next) {
+    const tmp = cur.next.next;
+    cur.next.next = cur;
+    if (!pre) {
+      pre = cur.next;
+      head = cur.next;
+    } else {
+      pre.next = cur.next;
+    }
+
+    cur.next = tmp;
+
+    pre = cur;
+    cur = cur.next;
+  }
+
+  return head;
 }
 
 // test-case

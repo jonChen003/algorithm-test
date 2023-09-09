@@ -47,7 +47,7 @@ function isValid(s) {
 
   for (const char of s) {
     if (map.has(char)) {
-      // 碰到右括号开始判断是否匹配并出栈
+      // 碰到右括号)、]、}开始判断是否匹配并出栈
       if (!stack.length || stack[stack.length - 1] !== map.get(char)) {
         return false;
       }

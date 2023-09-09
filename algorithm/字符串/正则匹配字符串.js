@@ -54,17 +54,20 @@ function isMatch(s, p) {
 // 方法二：递归 + 从后往前匹配（推荐）
 function isMatchV2(s, p) {
   function myMatch(i, j) {
+    // 递归终止条件
     if (j === -1) return i === -1;
 
+    // 1、p最后一个字符是. 或者 p最后一个字符与s最后一个字符相等
     if (p[j] === '.' || p[j] === s[i]) {
       return myMatch(i - 1, j - 1);
     }
 
+    // 2、p最后一个字符是星号*, 这种又要区分多种情况
     if (p[j] === '*') {
       if ((i > -1 && p[j - 1] === '.') || p[j - 1] === s[i]) {
-        // myMatch(i - 1, j) in this case, a* counts as multiple a
-        // myMatch(i, j - 2) in this case, a* counts as empty
-        // myMatch(i - 1, j - 2) in this case, a* counts as single a
+        // myMatch(i - 1, j) in this case, a* counts as multiple a (aaa vs a*)
+        // myMatch(i, j - 2) in this case, a* counts as empty (b vs a*)
+        // myMatch(i - 1, j - 2) in this case, a* counts as single a (a vs a*)
         return myMatch(i - 1, j) || myMatch(i, j - 2) || myMatch(i - 1, j - 2);
       } else {
         // p.charAt(j-1) != s.charAt(i) in this case, a* only counts as empty
@@ -82,6 +85,7 @@ function isMatchV2(s, p) {
 console.log('isMatch_v1_1', isMatch('aa', 'a*'));
 console.log('isMatch_v2_1', isMatchV2('aa', 'a*'));
 
+// .* 匹配任意个任意字符, 表示.可以出现0次或者多次，而.又可以匹配任意一个字符
 console.log('isMatch_v1_2', isMatch('ab', '.*'));
 console.log('isMatch_v2_2', isMatchV2('ab', '.*'));
 

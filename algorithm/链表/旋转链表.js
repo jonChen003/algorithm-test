@@ -25,9 +25,10 @@ const { SinglyList, printSinglyList } = require('../../lib/singlyList');
 
 /**
  * 算法思路：
- *  1、改成循环列表
- *  2、找到下一次头节点、尾节点
- *  3、改成单链表
+ *  1、遍历链表，获取链表总长度
+ *  2、遍历后将单链表改成循环列表
+ *  3、找到下一次头节点、尾节点
+ *  4、改成单链表
  */
 function rotateRight(head, k) {
   if (head === null || k <= 0) return head;
@@ -42,7 +43,7 @@ function rotateRight(head, k) {
     length += 1;
   }
 
-  // 改成循环链表
+  // 改成循环链表：可以同时移动当前指针和尾指针
   tail = current;
   tail.next = head;
   current = head;
@@ -54,6 +55,7 @@ function rotateRight(head, k) {
     tail = tail.next;
   }
 
+  // 改成单链表
   tail.next = null;
   return current;
 }

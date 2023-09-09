@@ -72,7 +72,7 @@ function jumpGameII_V2(nums) {
 }
 
 /**
- * (推荐)
+ * (更推荐)
  * 维护两个指针left和right
  * left：记录当前位置可到达的左边界
  * right：记录当前位置可到达的右边界

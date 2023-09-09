@@ -1,10 +1,10 @@
 /**
- * 手动实现不丢精度的四则运算
+ * - 手动实现不丢精度的四则运算
  */
 
 /* eslint-disable no-restricted-properties */
 
-// 转化为整数进行运算
+/// 整体思想：转化为整数进行运算
 function add(a, b) {
   let c;
   let d;

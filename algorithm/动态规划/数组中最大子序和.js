@@ -16,6 +16,7 @@
  */
 
 /**
+ * - 方式一：动态规划
  * 时间复杂度：O(n)
  * 空间复杂度：O(n)
  */
@@ -30,6 +31,8 @@ function maxSubArray(nums) {
   let result = dp[0];
 
   for (let i = 1; i < nums.length; i++) {
+    // dp[i - 1] + nums[i]，即：nums[i]加入当前连续子序列和
+    // nums[i]，即：从头开始计算当前连续子序列和
     dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]);
 
     // result 保存dp[i]的最大值
@@ -38,6 +41,26 @@ function maxSubArray(nums) {
 
   return result;
 }
+
+/**
+ * - 方式二：贪心算法
+ */
+var maxSubArray = function (nums) {
+  let result = -Infinity;
+  let count = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    count += nums[i];
+    result = Math.max(result, count);
+
+    // 如果累加和小于0，重新开始累加
+    if (count < 0) {
+      count = 0;
+    }
+  }
+
+  return result;
+};
 
 // test-case
 const nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4];

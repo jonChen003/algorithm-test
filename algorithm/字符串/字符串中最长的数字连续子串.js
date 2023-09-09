@@ -58,7 +58,7 @@ function findLongestNumberSubstringV1(str) {
  *  如果更长的话，就记录当前长度和开始index
  */
 
-// 方法二：优化解法-空间复杂度为O(1)
+// 方法二：优化解法-空间复杂度为O(1) (推荐)
 /**
  * @param {*} str
  * @returns result[]
@@ -72,9 +72,11 @@ function findLongestNumberSubstringV2(str) {
   const strLen = str.length;
   let index = 0;
   let curLen = 0; // 记录最长长度的指针
+
   // 遍历字符串
   while (index < strLen) {
     curLen = 0;
+    // 碰到数字的话，以当前为起点，往后连续找数字
     // 记录连续数字字符串长度
     while (index < strLen && /\d/.test(str.charAt(index))) {
       curLen += 1;

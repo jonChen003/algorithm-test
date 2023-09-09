@@ -29,6 +29,7 @@
 function validateStackSequences(pushed, popped) {
   const stack = []; // 需要利用到一个辅助栈做检查
 
+  // 先遍历pushed数组，模拟入栈; 后遍历poped数组模拟出栈
   for (
     let pushIndex = 0, popIndex = 0;
     pushIndex < pushed.length;

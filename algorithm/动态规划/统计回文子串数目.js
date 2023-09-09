@@ -57,9 +57,9 @@ function countPalindromeSubstringsV2(str) {
 
   // 在遍历中心点的时候，要注意中心点有两种情况：一个元素可以作为中心点，两个元素也可以作为中心点
   for (let i = 0; i < str.length; i++) {
-    // 以i为中心，往外找
+    // 以i为中心，往外找（单核心）
     result += findByExtend(str, i, i);
-    // 以i和i+1为中心，往外找
+    // 以i和i+1为中心，往外找（双核心）
     result += findByExtend(str, i, i + 1);
   }
 
@@ -80,7 +80,13 @@ function findByExtend(str, left, right) {
 
 // test-case
 console.log('countPalindromeSubstrings: ', countPalindromeSubstrings('abc'));
-console.log('countPalindromeSubstringsV2: ', countPalindromeSubstringsV2('abc'));
+console.log(
+  'countPalindromeSubstringsV2: ',
+  countPalindromeSubstringsV2('abc')
+);
 
 console.log('countPalindromeSubstrings: ', countPalindromeSubstrings('aaa'));
-console.log('countPalindromeSubstringsV2: ', countPalindromeSubstringsV2('aaa'));
+console.log(
+  'countPalindromeSubstringsV2: ',
+  countPalindromeSubstringsV2('aaa')
+);

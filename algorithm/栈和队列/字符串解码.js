@@ -26,6 +26,7 @@
  */
 function decodeString(s) {
   const stack = [];
+
   for (let i = 0; i < s.length; i++) {
     // 1. 非"]"字符先全部压入栈中
     if (s[i] !== ']') {
@@ -52,6 +53,8 @@ function decodeString(s) {
     // 4. 现在要么是字母，要么是 [
     stack.push(curChar);
     stack.push(str.repeat(multi));
+
+    console.log('stack---', stack);
   }
 
   return stack.join('');

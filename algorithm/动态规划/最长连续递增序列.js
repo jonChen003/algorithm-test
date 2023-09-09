@@ -14,10 +14,35 @@
 
 /**
  * 参考文档：
- *   https://programmercarl.com/0300.%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97.html
+ *  https://programmercarl.com/0674.%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E9%80%92%E5%A2%9E%E5%BA%8F%E5%88%97.html#%E6%80%9D%E8%B7%AF
  */
 
 /**
+ * - 方式一：贪心算法（推荐）
+ *  时间复杂度：O(n)
+ *  空间复杂度：O(1)
+ */
+function findLengthOfLCIS_V1(nums) {
+  if (nums.length <= 1) return nums.length;
+
+  let result = 1;
+  let count = 1;
+
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] > nums[i - 1]) {
+      count++;
+    } else {
+      count = 1;
+    }
+
+    result = Math.max(result, count);
+  }
+
+  return result;
+}
+
+/**
+ * - 方式二：动态规划
  * 时间复杂度：O(n)
  * 空间复杂度：O(n)
  */

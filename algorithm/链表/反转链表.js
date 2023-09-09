@@ -23,6 +23,18 @@
 const { SinglyList, printSinglyList } = require('../../lib/singlyList');
 
 /// 方式一：双指针法(推荐)
+/**
+ * 双指针：cur指针和pre指针（因为是处理前和处理后两段，所以需要两个指针）
+ * cur指针：当前节点
+ * pre指针：前一个节点
+ *
+ * 1->2->3->4->5
+ *  pre->1->null  cur->2->3->4->5
+ *    pre->2->1->null  cur->3->4->5
+ *      pre->3->2->1->null cur->4->5
+ *        pre->4->3->2->1->null cur->5
+ *          pre->5->4->3->2->1->null cur = null
+ */
 function reverseList(head) {
   let cur = head;
   let pre = null;

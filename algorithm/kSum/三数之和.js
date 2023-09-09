@@ -33,6 +33,7 @@ function threeSum(nums) {
   const len = nums.length;
   if (len < 3) return result;
 
+  // [-1, 0, 1, 2, -1, -4] -> [-4, -1, -1, 0, 1, 2]
   nums.sort((a, b) => a - b); // 对数组进行排序
 
   // 整个数组不能同符号

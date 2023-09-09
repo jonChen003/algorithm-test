@@ -9,7 +9,7 @@
  * 如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。
  */
 
-// 方法一：双指针
+// 方法一：双指针（推荐）
 function reverseWords1(str) {
   const len = str.length;
   let rs = '';

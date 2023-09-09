@@ -23,6 +23,10 @@
  *  https://www.programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#_704-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE
  */
 
+/**
+ * 时间复杂度：O(log n)
+ * 空间复杂度：O(1)
+ */
 /// 方式一：左闭右闭区间[left, right] （推荐）
 function binarySearchV1(nums, target) {
   if (!nums || !nums.length) {

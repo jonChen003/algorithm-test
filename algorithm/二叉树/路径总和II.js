@@ -58,46 +58,35 @@ function pathsum(root, targetSum) {
 }
 
 /**
- * - 递归法，只是处理节点方式不一样，逻辑跟上面一致
+ * - 递归法，跟所有路径的套路一样（推荐）
  */
 function pathsumV2(root, targetSum) {
-  function traverse(curNode, count) {
-    if (!curNode.left && !curNode.right && count === 0) {
-      // 遇到了叶子节点且找到了和为sum的路径
-      result.push([...path]);
+  if (!root) return [];
+  let result = [];
+
+  function traverse(node, paths) {
+    paths.push(node.val);
+
+    if (!node.left && !node.right) {
+      const sum = paths.reduce((acc, val) => acc + val, 0);
+      if (sum === targetSum) {
+        result.push([...paths]);
+      }
       return;
     }
 
-    if (!curNode.left && !curNode.right) return;
-
-    // 递归
-    if (curNode.left) {
-      // 遍历左子树
-      path.push(curNode.left.data);
-      traverse(curNode.left, count - curNode.left.data);
-      // 回溯
-      path.pop();
+    if (node.left) {
+      traverse(node.left, paths);
+      paths.pop();
     }
 
-    if (curNode.right) {
-      // 遍历右子树
-      path.push(curNode.right.data);
-      traverse(curNode.right, count - curNode.right.data);
-      // 回溯
-      path.pop();
+    if (node.right) {
+      traverse(node.right, paths);
+      paths.pop();
     }
   }
 
-  const result = [];
-  const path = [];
-  if (root === null) return result;
-
-  // 先把根节点放进路径，这种与二叉树所有路径题目原理一样，只是写法不一样
-  path.push(root.data);
-  traverse(root, targetSum - root.data);
-
-  // 把path放进递归参数里也是可以的
-  // traverse(root, targetSum - root.data, [root.data]);
+  traverse(root, []);
 
   return result;
 }

@@ -37,24 +37,24 @@
  */
 function minSubArrayLen(nums, target) {
   const len = nums.length;
-  let result = len + 1;
-  let sum = 0; // 滑动窗口数值之和
-  let i = 0; // 滑动窗口起始位置
-  let subLength = 0; // 滑动窗口的长度
+  let left = 0; // 滑动窗口左指针
+  let minLen = len + 1;
+  let sum = 0; // 窗口内的元素和
 
-  for (let j = 0; j < len; j++) {
-    sum += nums[j];
+  // 一步步移动滑动窗口的右指针
+  for (let i = 0; i < len; i++) {
+    sum += nums[i];
 
+    // 一旦窗口内的和大于目标值，就缩小窗口
     while (sum >= target) {
-      subLength = j - i + 1; // 取子序列的长度
-      result = Math.min(result, subLength);
-      // 这里体现出滑动窗口的精髓之处，不断变更i（子序列的起始位置）
-      sum -= nums[i++];
+      minLen = Math.min(minLen, i - left + 1);
+      sum -= nums[left];
+      // 一步步移动滑动窗口的左指针缩小窗口
+      left++;
     }
   }
 
-  // 如果result没有被赋值的话，就返回0，说明没有符合条件的子序列
-  return result === len + 1 ? 0 : result;
+  return minLen === len + 1 ? 0 : minLen;
 }
 
 // test-case

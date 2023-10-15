@@ -66,3 +66,4 @@ function isValid(s) {
 console.log('res: ', isValid('()'));
 console.log('res: ', isValid('()[]{}'));
 console.log('res: ', isValid('(]'));
+console.log('res: ', isValid(')('));

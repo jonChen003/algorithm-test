@@ -93,6 +93,7 @@ function jumpGameV1(nums) {
     right = maxBound;
     jumpCnt += 1;
   }
+
   return jumpCnt;
 }
 

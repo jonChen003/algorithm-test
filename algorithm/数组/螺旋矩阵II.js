@@ -37,10 +37,67 @@
  * 参考文档：
  *  https://programmercarl.com/0059.%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5II.html
  */
-
+// 推荐
 function generateMatrix(n) {
   // 定义一个二维数组
-  const res = new Array(n).fill(0).map(() => new Array(n).fill(0));
+  const nums = new Array(n).fill(0).map(() => new Array(n).fill(0));
+  // 定义每循环一个圈的起始位置
+  let startX = 0;
+  let startY = 0;
+  // 旋转圈数，当n为奇数时，矩阵中间的值需要单独处理
+  let loop = Math.floor(n / 2);
+  // 需要控制每一条边遍历的长度，每次循环右边界收缩一位
+  let offset = 1;
+
+  // 用来给矩阵中每一个空格赋值
+  let count = 1;
+
+  // 外层循环，按圈循环
+  while (loop--) {
+    let row = startX;
+    let col = startY;
+
+    // 下面开始的四个for就是模拟转了一圈
+    // 模拟填充上行从左到右(左闭右开)
+    for (; col < n - offset; col++) {
+      nums[row][col] = count++;
+    }
+
+    // 模拟填充右列从上到下(左闭右开)
+    for (; row < n - offset; row++) {
+      nums[row][col] = count++;
+    }
+
+    // 模拟填充下行从右到左(左闭右开)
+    for (; col > startY; col--) {
+      nums[row][col] = count++;
+    }
+
+    // 模拟填充左列从下到上(左闭右开)
+    for (; row > startX; row--) {
+      nums[row][col] = count++;
+    }
+
+    // 第二圈开始的时候，起始位置要各自加1， 例如：第一圈起始位置是(0, 0)，第二圈起始位置是(1, 1)
+    startX++;
+    startY++;
+    // offset 控制每一圈里每一条边遍历的长度
+    offset++;
+  }
+
+  // 如果n为奇数的话，需要单独给矩阵最中间的位置赋值
+  // 矩阵中间的位置，例如：n为3， 中间的位置就是(1，1)，n为5，中间位置为(2, 2)
+  const mid = Math.floor(n / 2);
+  if (n % 2 === 1) {
+    nums[mid][mid] = count;
+  }
+
+  return nums;
+}
+
+function generateMatrix_v2(n) {
+  // 定义一个二维数组
+  const nums = new Array(n).fill(0).map(() => new Array(n).fill(0));
   // 定义每循环一个圈的起始位置
   let startX = 0;
   let startY = 0;
@@ -53,49 +110,45 @@ function generateMatrix(n) {
 
   // 外层循环，按圈循环
   while (loop--) {
-    let row = startX;
-    let col = startY;
-
-    // 下面开始的四个for就是模拟转了一圈
-    // 模拟填充上行从左到右(左闭右开)
-    for (; col < n - offset; col++) {
-      res[row][col] = count++;
+    // 还是用上面的row和col更简洁
+    for (let col = startY; col < n - offset; col++) {
+      nums[startX][col] = count++;
     }
 
-    // 模拟填充右列从上到下(左闭右开)
-    for (; row < n - offset; row++) {
-      res[row][col] = count++;
+    for (let row = startX; row < n - offset; row++) {
+      nums[row][n - offset] = count++;
     }
 
-    // 模拟填充下行从右到左(左闭右开)
-    for (; col > startY; col--) {
-      res[row][col] = count++;
+    for (let col = n - offset; col > startY; col--) {
+      nums[n - offset][col] = count++;
     }
 
-    // 模拟填充左列从下到上(左闭右开)
-    for (; row > startX; row--) {
-      res[row][col] = count++;
+    for (let row = n - offset; row > startX; row--) {
+      nums[row][startY] = count++;
     }
 
-    // 第二圈开始的时候，起始位置要各自加1， 例如：第一圈起始位置是(0, 0)，第二圈起始位置是(1, 1)
     startX++;
     startY++;
-
-    // offset 控制每一圈里每一条边遍历的长度
-    offset += 1;
+    offset++;
   }
 
   // 如果n为奇数的话，需要单独给矩阵最中间的位置赋值
   // 矩阵中间的位置，例如：n为3， 中间的位置就是(1，1)，n为5，中间位置为(2, 2)
   const mid = Math.floor(n / 2);
   if (n % 2 === 1) {
-    res[mid][mid] = count;
+    nums[mid][mid] = count;
   }
 
-  return res;
+  return nums;
 }
+
 // test-case
 console.log('1*1的螺旋矩阵：', generateMatrix(1));
 console.log('3*3的螺旋矩阵：', generateMatrix(3));
 console.log('4*4的螺旋矩阵：', generateMatrix(4));
 console.log('5*5的螺旋矩阵：', generateMatrix(5));
+
+console.log('1*1的螺旋矩阵：', generateMatrix_v2(1));
+console.log('3*3的螺旋矩阵：', generateMatrix_v2(3));
+console.log('4*4的螺旋矩阵：', generateMatrix_v2(4));
+console.log('5*5的螺旋矩阵：', generateMatrix_v2(5));

@@ -1,26 +1,31 @@
-function arrayToTree(arr) {
-  const result = [];
-	const itemMap = {};
+function carry(fn) {
+  const fnArgLength = fn.length;
 
-	for (const item of arr) {
-		itemMap[item.id] = { ...item, children: [] };
-	}
+  return function wrap(...args) {
+    let argList = [...args];
 
-	for (const item of arr) {
-		const { id, pid } = item;
+    if (argList.length === fnArgLength) {
+      return fn(...argList);
+    }
 
-		if (item.pid === 0) {
-			result.push(itemMap[id]);
-		} else {
-			if(!itemMap[pid]) {
-				itemMap[pid] = {
-					children: []
-				}
-			}
+    return function next(...nextArgs) {
+      argList = argList.concat(nextArgs);
 
-			itemMap[pid].children.push(item[id]);
-		}
-	}
+      if (argList.length === fnArgLength) {
+        return fn(...argList);
+      }
 
-	return result;
+      return next;
+    };
+  };
 }
+
+function add1(a, b, c) {
+  return a + b + c;
+}
+
+const add = carry(add1);
+
+console.log('res: ', add(1, 2, 3));
+console.log('res: ', add(1)(2, 3));
+console.log('res: ', add(1, 2)(3));

@@ -46,7 +46,7 @@ function findKth(nums1, start1, nums2, start2, kth) {
 
   // 将kth划分为2个部分
   // nums1根据part1划分
-  const part1 = Math.min(parseInt(kth / 2, 10), len1);
+  const part1 = Math.min(Math.floor(kth / 2), len1);
   // nums2根据part2划分
   const part2 = kth - part1;
 
@@ -62,18 +62,55 @@ function findKth(nums1, start1, nums2, start2, kth) {
   }
 }
 
+// 这种方式更容易理解(推荐)
+function findKthNum(nums1, start1, nums2, start2, kth) {
+  // 递归终止条件
+  if (start1 > nums1.length - 1) {
+    return nums2[start2 + kth - 1];
+  }
+
+  if (start2 > nums2.length - 1) {
+    return nums1[start1 + kth - 1];
+  }
+
+  if (kth === 1) {
+    return Math.min(nums1[start1], nums2[start2]);
+  }
+
+  // 划分
+  // 取k2为(k/2)或者数组1的长度或者数组2的长度的最小值
+  // 这一步可以避免k2大于某个数组的长度（长度为从起始坐标到结尾）
+
+  let k2 = Math.floor(kth / 2);
+  const len1 = nums1.length - start1;
+  const len2 = nums2.length - start2;
+  k2 = Math.min(k2, len1, len2);
+
+  // 比较两个数组的起始坐标的值
+  const value1 = nums1[start1 + k2 - 1];
+  const value2 = nums2[start2 + k2 - 1];
+
+  if (value1 < value2) {
+    // 就舍弃nums1前i + k2部分
+    return findKthNum(nums1, start1 + k2, nums2, start2, kth - k2);
+  } else {
+    // 否则舍弃nums2前j + k2部分
+    return findKthNum(nums1, start1, nums2, start2 + k2, kth - k2);
+  }
+}
+
 function findMedianSortedArrays(nums1, nums2) {
   const total = nums1.length + nums2.length;
 
   if (total % 2 === 1) {
     // 总长度为奇数情况，例如长度为7，只要找第4大元素
-    return findKth(nums1, 0, nums2, 0, parseInt(total / 2, 10) + 1);
+    return findKthNum(nums1, 0, nums2, 0, Math.floor(total / 2) + 1);
   }
 
   // 总长度为偶数情况，例如长度为8，找到第4大和第5大元素，然后求平均值
   return (
-    (findKth(nums1, 0, nums2, 0, total / 2) +
-      findKth(nums1, 0, nums2, 0, total / 2 + 1)) /
+    (findKthNum(nums1, 0, nums2, 0, total / 2) +
+      findKthNum(nums1, 0, nums2, 0, total / 2 + 1)) /
     2
   );
 }

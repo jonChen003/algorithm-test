@@ -56,6 +56,11 @@ function testWeightBagProblem(weight, value, bagSize) {
  *  推导递推公式：
  *    不放当前商品：dp[j]
  *    放当前商品：dp[j - weight[i]] + value[i]
+ *  为什么背包容量必须倒序遍历，就可以保证物品只放入一次呢？
+ *    倒序就是先算dp[2]
+ *    dp[2] = dp[2 - weight[0]] + value[0] = 15 （dp数组已经都初始化为0）
+ *    dp[1] = dp[1 - weight[0]] + value[0] = 15
+ *    所以从后往前循环，每次取得状态不会和之前取得状态重合，这样每种物品就只取一次了
  */
 function testWeightBagProblemV2(weight, value, bagSize) {
   // 确定dp数组以及下标的含义

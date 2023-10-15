@@ -22,6 +22,9 @@
 /**
  * 时间复杂度：O(m × n)
  * 空间复杂度：O(m × n)
+ * * 递推公式：dp[i][j]
+ *    obstacleGrid[i][j] === 1情况下：dp[i][j] =0
+ *    obstacleGrid[i][j] !== 1情况下: dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
  */
 function uniquePathsWithObstacles(obstacleGrid) {
   const m = obstacleGrid.length;

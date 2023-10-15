@@ -21,6 +21,10 @@
  * - 一维dp数组
  *  一维dp数组的递推公式跟01背包问题是一样的
  *  所不同的是遍历顺序，也就是允不允许添加多个
+ *  为什么背包容量必须正序遍历？
+ *    dp[1] = dp[1 - weight[0]] + value[0] = 15
+ *    dp[2] = dp[2 - weight[0]] + value[0] = 30
+ *    此时dp[2]就已经是30了，意味着物品0可以被放入了两次
  */
 // - 双层循环：先遍历物品，再遍历背包
 function testCompletePack(weight, value, bagSize) {

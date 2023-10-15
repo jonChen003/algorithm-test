@@ -17,23 +17,20 @@
 
 function translateNum(num) {
   const str = `${num}`;
+  const len = str.length;
 
-  if (str.length === 1) return 1;
+  // 确定dp数组以及下标含义：从0到索引i的位置总共有dp[i]种翻译方法
+  const dp = Array(len).fill(0);
+  // 初始化：索引0的位置只有一个翻译方法
+  dp[0] = 1;
 
-  // 确定dp数组以及下标的含义，dp[i]：长度为i的字符串，有dp[i]种翻译方法
-  const dp = [];
-  /**
-   * 初始化dp数组，长度为1，只有一种翻译方法，
-   * 但是当长度为2时，可能有一种，可能有两种，所以放到循环里面去根据条件初始化
-   */
-  dp[1] = 1;
-
-  for (let i = 2; i <= str.length; i++) {
-    const n = Number(`${str[i - 2]}${str[i - 1]}`);
-
+  // 循环
+  for (let i = 1; i < len; i++) {
+    const n = Number(`${str[i - 1]}${str[i]}`);
+    // 确定递推公式
     if (n >= 10 && n <= 25) {
-      if (i === 2) {
-        dp[2] = 2;
+      if (i === 1) {
+        dp[i] = 2;
       } else {
         dp[i] = dp[i - 1] + dp[i - 2];
       }
@@ -42,7 +39,7 @@ function translateNum(num) {
     }
   }
 
-  return dp[str.length];
+  return dp[len - 1];
 }
 
 // test-case

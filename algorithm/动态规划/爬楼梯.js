@@ -49,22 +49,22 @@ function climbStairs(n) {
  *  2. 数组法-使用数组存储
  */
 
-// 递推法-使用双指针
+// 递推法-只需要维护两个数值就可以了，不需要记录整个序列
 function climbStairsV2(n) {
-  if (n === 1) return 1;
-  if (n === 2) return 2;
+  if (n === 1 || n === 2) return n;
 
-  let n1 = 1;
-  let n2 = 2;
-  let sum = 0;
+  let first = 1;
+  let second = 2;
+  let result = 0;
 
   for (let i = 3; i <= n; i++) {
-    sum = n1 + n2;
-    n1 = n2;
-    n2 = sum;
+    result = first + second;
+    // 移动两个数
+    first = second;
+    second = result;
   }
 
-  return sum;
+  return result;
 }
 
 // test-case

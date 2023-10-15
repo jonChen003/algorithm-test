@@ -101,7 +101,7 @@ function multiRequest_v1(urls = [], limit) {
 }
 
 /**
- * - 方式二：使用promise.all + promise.race（推荐）
+ * - 方式二：使用promise.allSettled + promise.race（推荐）
  * 参考文档：
  * 	https://juejin.cn/post/7219961144584552504?searchId=20230819164136A4ED1432BAE7B26505B7#heading-6
  *  https://juejin.cn/post/6976028030770610213?searchId=20230819164136A4ED1432BAE7B26505B7

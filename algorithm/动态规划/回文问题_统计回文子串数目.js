@@ -47,7 +47,7 @@ function countPalindromeSubstrings(str) {
   return result;
 }
 
-// 方式二：双指针法
+// 方式二：中心扩展法
 /**
  * 时间复杂度：O(n^2)
  * 空间复杂度：O(1)
@@ -66,6 +66,12 @@ function countPalindromeSubstringsV2(str) {
   return result;
 }
 
+/**
+ * @param {*} str: 给定的字符串
+ * @param {*} left: 从left位置向左扩展
+ * @param {*} right: 从right位置向右扩展
+ * @return {*} 统计到的回文数
+ */
 function findByExtend(str, left, right) {
   let res = 0;
 

@@ -106,7 +106,7 @@ function longestPalindromeV2(s) {
       // 确定递推公式
       if (s[i] === s[j]) {
         if (j - i <= 1 || dp[i + 1][j - 1]) {
-          result = result.length > j - i + 1 ? result : s.substr(i, j - i + 1);
+          result = result.length > j - i + 1 ? result : s.slice(i, j + 1);
           dp[i][j] = true;
         }
       }

@@ -67,7 +67,7 @@ function testWeightBagProblemV2(weight, value, bagSize) {
   // dp[j]: 容量为j的背包，所背的物品价值可以最大为dp[j]
   const dp = Array(bagSize + 1).fill(0);
 
-  // 确定遍历顺序：先遍历物品，再遍历背包容量
+  // 确定遍历顺序：先遍历物品，再遍历背包容量（也就是挨个把物品放到包中）
   for (let i = 0; i < weight.length; i++) {
     // 背包容量必须倒序遍历，为了保证每个物品仅被添加一次
     for (let j = bagSize; j >= weight[i]; j--) {

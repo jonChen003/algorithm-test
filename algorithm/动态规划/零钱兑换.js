@@ -63,13 +63,16 @@ function numSquares(n) {
   dp[0] = 0;
 
   const coins = [];
+
+  // 构建完全平方数数组
   for (let i = 1; i * i <= n; i++) {
     coins.push(i * i);
   }
 
+  // 双层循环
   for (let i = 0; i < coins.length; i++) {
     for (let j = coins[i]; j <= n; j++) {
-      if (dp[j - coins[i]] !== Infinity) {
+      if (j - coins[i] !== Infinity) {
         dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
       }
     }

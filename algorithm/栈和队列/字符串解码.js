@@ -50,8 +50,9 @@ function decodeString(s) {
       curChar = stack.pop();
     }
 
-    // 4. 现在要么是字母，要么是 [
-    stack.push(curChar);
+    // 4. 现在要么是字母，要么是 [，要么为空
+    stack.push(curChar || '');
+    // 重复字符串，然后还需入栈
     stack.push(str.repeat(multi));
 
     console.log('stack---', stack);

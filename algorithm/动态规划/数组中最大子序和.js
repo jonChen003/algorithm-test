@@ -19,6 +19,9 @@
  * - 方式一：动态规划
  * 时间复杂度：O(n)
  * 空间复杂度：O(n)
+ *
+ * 递归公式：
+ *  Math.max(nums[i]加入当前连续子序列和，以nums[i]为头开始计算)
  */
 function maxSubArray(nums) {
   if (!nums || !nums.length) {
@@ -44,6 +47,7 @@ function maxSubArray(nums) {
 
 /**
  * - 方式二：贪心算法
+ * 关键点：如果累加和小于0，重新开始累加
  */
 var maxSubArray = function (nums) {
   let result = -Infinity;

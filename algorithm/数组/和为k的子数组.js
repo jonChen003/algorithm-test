@@ -15,6 +15,7 @@
  */
 
 function subarraySum(nums, k) {
+  // 初始化map
   const map = { 0: 1 };
   let prefixSum = 0;
   let count = 0;

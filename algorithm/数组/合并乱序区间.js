@@ -1,5 +1,5 @@
 /**
- * - 合并乱序区间
+ * - leetcode 156. 合并乱序区间
  * 示例 1：
  * 输入：intervals = [[1,3],[2,6],[8,10],[15,18]]
  * 输出：[[1,6],[8,10],[15,18]]
@@ -12,68 +12,28 @@
  */
 
 /**
- * 1、sort
- * 2、逐个比较
- *   []  [[1,3],[2,6],[8,10],[15,18]]
- *  [[1,3]]  [[2,6],[8,10],[15,18]]
- *  [[1,6]]  [[8,10],[15,18]]
- *  [[1,6],[8,10]]  [[15,18]]
- *  [[1,6],[8,10],[15,18]]
+ * 算法思想
+ *  1、先排序
+ *  2、按个合并区间
+ *    不重合：直接加入
+ *    重合：比较两个区间的右侧端点
  */
-
-function mergeInterval(intervals) {
-  if (intervals.length <= 1) {
-    return intervals;
-  }
-
-  // 1. 先根据第一个数字进行排序
-  intervals.sort((a, b) => a[0] - b[0]);
-
+const merge = function (intervals) {
+  if (intervals.length <= 1) return intervals;
   const res = [];
 
-  // 2. 将每一个区间与现有的结果进行比较
-  for (const itv of intervals) {
-    pushToRes(itv);
-  }
-  return res;
+  // 先根据第一个数字进行排序
+  intervals.sort((a, b) => a[0] - b[0]);
 
-  function pushToRes(interval) {
-    const [start, end] = interval;
-
-    if (res.length === 0) {
-      res.push(interval);
+  for (intv of intervals) {
+    if (res.length === 0 || intv[0] > res[res.length - 1][1]) {
+      // 不重合：直接加入
+      res.push(intv);
     } else {
-      // 与res里面每个区间进行比较
-      let pushed = false;
-      for (let i = 0; i < res.length; i++) {
-        // 3. 处理重合的部分
-        const newRange = mergeRange(res[i][0], res[i][1], start, end);
-        if (newRange) {
-          res[i] = newRange;
-          pushed = true;
-        }
-      }
-      // 4. 如果都不相交，那就直接塞入
-      !pushed && res.push(interval); // 不相交，直接塞入
+      // 重合：比较两个区间的右侧端点
+      res[res.length - 1][1] = Math.max(res[res.length - 1][1], intv[1]);
     }
   }
-}
 
-function mergeRange(start1, end1, start2, end2) {
-  if (end1 < start2) {
-    // 不相交
-    return false;
-  }
-  if (start1 <= start2 && start2 <= end1 && end1 <= end2) {
-    // 相交（包含相等）
-    return [start1, end2];
-  }
-  if (start1 <= start2 && end1 >= end2) {
-    // 1 包含 2
-    return [start1, end1];
-  }
-  if (start1 >= start2 && end1 <= end2) {
-    // 2 包含 1
-    return [start2, end2];
-  }
-}
+  return res;
+};

@@ -28,34 +28,33 @@ function decodeString(s) {
   const stack = [];
 
   for (let i = 0; i < s.length; i++) {
-    // 1. 非"]"字符先全部压入栈中
+    // 1. 非']'字符先全部入栈
     if (s[i] !== ']') {
       stack.push(s[i]);
       continue;
     }
-
-    // 2. 遇到"]"时，开始出栈直到遇到 [
-    let str = '';
+    // 碰到']'字符时，开始处理出栈
+    // 2. 获取到'[]'里面的字符串
     let curChar = stack.pop();
+    let str = '';
     while (curChar !== '[') {
       str = curChar + str;
       curChar = stack.pop();
     }
 
-    // 3. 此时curChar为 [，接下来要遇到数字，处理倍数
-    let multi = '';
+    // 3. 再获取'['前面的倍数
     curChar = stack.pop();
-    while (!isNaN(curChar)) {
+    let multi = '';
+    while (curChar >= '0' && curChar <= '9') {
       multi = curChar + multi;
       curChar = stack.pop();
     }
+    multi = Number(multi);
 
     // 4. 现在要么是字母，要么是 [，要么为空
     stack.push(curChar || '');
-    // 重复字符串，然后还需入栈
+    // 5. 重复字符串，然后还需入栈
     stack.push(str.repeat(multi));
-
-    console.log('stack---', stack);
   }
 
   return stack.join('');

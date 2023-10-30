@@ -53,32 +53,37 @@ function isMatch(s, p) {
 
 // 方法二：递归 + 从后往前匹配（推荐）
 function isMatchV2(s, p) {
-  function myMatch(i, j) {
+  function checkMatch(i, j) {
     // 递归终止条件
     if (j === -1) return i === -1;
 
-    // 1、p最后一个字符是. 或者 p最后一个字符与s最后一个字符相等
+    // 情况1：p以.结尾或者p和s末尾字符相同
     if (p[j] === '.' || p[j] === s[i]) {
-      return myMatch(i - 1, j - 1);
+      return checkMatch(i - 1, j - 1);
     }
 
-    // 2、p最后一个字符是星号*, 这种又要区分多种情况
+    // 情况2：p以*号结尾，这种又要区分多种情况
     if (p[j] === '*') {
+      // p[j - 1] === '.'时，递归checkMatch(i - 1, j)可能导致i一直往前移，所以到判断 i > -1
       if ((i > -1 && p[j - 1] === '.') || p[j - 1] === s[i]) {
-        // myMatch(i - 1, j) in this case, a* counts as multiple a (aaa vs a*)
-        // myMatch(i, j - 2) in this case, a* counts as empty (b vs a*)
-        // myMatch(i - 1, j - 2) in this case, a* counts as single a (a vs a*)
-        return myMatch(i - 1, j) || myMatch(i, j - 2) || myMatch(i - 1, j - 2);
+        // checkMatch(i - 1, j) in this case, a* counts as multiple a (aaa vs a*)
+        // checkMatch(i, j - 2) in this case, a* counts as empty (b vs b.*)
+        // checkMatch(i - 1, j - 2) in this case, a* counts as single a (a vs a*)
+        return (
+          checkMatch(i - 1, j) ||
+          checkMatch(i, j - 2) ||
+          checkMatch(i - 1, j - 2)
+        );
       } else {
         // p.charAt(j-1) != s.charAt(i) in this case, a* only counts as empty
-        return myMatch(i, j - 2);
+        return checkMatch(i, j - 2);
       }
     }
 
     return false;
   }
 
-  return myMatch(s.length - 1, p.length - 1);
+  return checkMatch(s.length - 1, p.length - 1);
 }
 
 // test-case

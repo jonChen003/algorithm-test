@@ -7,7 +7,31 @@
  *    2、遍历顺序很重要：第一层从下往上，第二层从上往下，这样的话第二层遍历就知道到哪就结束，不再遍历了
  *    3、第一层用while，主要是记录每一轮终止的位置，第二层用for，在终止的位置前按个比较交换
  */
-function bubbleSort(arr) {
+
+// - 推荐
+const bubbleSort = function (nums) {
+  let lastPos = nums.length - 1;
+  let swapPos; // 记录发生交换的位置，用于优化
+
+  while (lastPos > 0) {
+    // 每次置为0，因为一轮下来都没有发生交换，那就表示后面都是有序的，不用再遍历了
+    swapPos = 0;
+
+    for (let i = 0; i < lastPos; i++) {
+      if (nums[i] > nums[i + 1]) {
+        swapPos = i;
+        [nums[i], nums[i + 1]] = [nums[i + 1], nums[i]];
+      }
+    }
+
+    // 把最后发生交换的位置赋值给lastPos
+    lastPos = swapPos;
+  }
+
+  return nums;
+};
+
+function bubbleSort_V2(arr) {
   let lastPos = arr.length - 1; // 代表每一轮终止的位置
   let tempPos; // 用于优化
   let temp;

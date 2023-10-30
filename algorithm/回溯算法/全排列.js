@@ -23,39 +23,38 @@
  * 	图示: https://pic.leetcode-cn.com/0bf18f9b86a2542d1f6aa8db6cc45475fce5aa329a07ca02a9357c2ead81eec1-image.png
  */
 
-function permute(inputNums) {
-  if (!inputNums.length) {
-    return inputNums;
-  }
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permute = function (nums) {
+  const res = [];
 
-  const resArr = [];
-  backtrack(inputNums, []);
-  return resArr;
-
-  /**
-   * 1. 确定回溯函数入参
-   * @param {*} nums: 输入的数组，inputNums
-   * @param {*} path: 当前收集的路径
-   */
-  function backtrack(nums, path) {
-    // 2. 确定终止条件
-    if (nums.length === path.length) {
-      // 注意这里一定要克隆下，因为path是个引用类型
-      resArr.push([...path]);
+  // 确定回溯函数入参，path：当前收集的路径
+  function traverse(path) {
+    // 确定递归终止条件
+    if (path.length === nums.length) {
+      res.push([...path]);
       return;
     }
 
-    // 3. 深度优先遍历
+    // 选择：本层集合中元素
     for (let i = 0; i < nums.length; i++) {
-      // 如果path中已有，则跳过
       if (!path.includes(nums[i])) {
-        path.push(nums[i]); // 处理节点
-        backtrack(nums, path); // 递归
-        path.pop(); // 回溯
+        // 处理节点
+        path.push(nums[i]);
+        // 递归
+        traverse(path);
+        // 回溯，撤销处理结果
+        path.pop();
       }
     }
   }
-}
+
+  traverse([]);
+
+  return res;
+};
 
 // test-case
 console.log('permute-res: ', permute([1, 2, 3]));

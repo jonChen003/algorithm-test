@@ -19,7 +19,7 @@ function quickSortV1(arr) {
     }
   });
 
-  return quickSortV1(left).concat([pivot], quickSortV1(right));
+  return [...quickSortV1(left), pivot, ...quickSortV1(right)];
 }
 
 /* eslint-disable no-param-reassign */

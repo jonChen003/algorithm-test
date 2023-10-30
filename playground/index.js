@@ -1,31 +1,70 @@
-function carry(fn) {
-  const fnArgLength = fn.length;
-
-  return function wrap(...args) {
-    let argList = [...args];
-
-    if (argList.length === fnArgLength) {
-      return fn(...argList);
+/**
+ * [
+    {
+        id: 1,
+        text: '节点1',
+        parentId: 0,
+        children: [
+            {
+                id:2,
+                text: '节点1_1',
+                parentId:1
+            }
+        ]
     }
+]
+ */
 
-    return function next(...nextArgs) {
-      argList = argList.concat(nextArgs);
+function treeToArray(arr) {
+  const res = [];
 
-      if (argList.length === fnArgLength) {
-        return fn(...argList);
+  function traverse(childList) {
+    childList.forEach((item) => {
+      if (item.children && item.children.length) {
+        res.push({
+          id: item.id,
+          name: item.name,
+          pid: item.pid,
+        });
+        traverse(item.children);
+      } else {
+        res.push(item);
       }
+    });
+  }
 
-      return next;
-    };
-  };
+  traverse(arr);
+
+  return res;
 }
 
-function add1(a, b, c) {
-  return a + b + c;
-}
+// test-case
+const arr = [
+  {
+    id: 1,
+    name: '部门1',
+    pid: 0,
+    children: [
+      {
+        id: 2,
+        name: '部门2',
+        pid: 1,
+        children: [
+          {
+            id: 4,
+            name: '111',
+            pid: 2,
+          },
+        ],
+      },
+      {
+        id: 3,
+        name: '部门3',
+        pid: 1,
+        children: [],
+      },
+    ],
+  },
+];
 
-const add = carry(add1);
-
-console.log('res: ', add(1, 2, 3));
-console.log('res: ', add(1)(2, 3));
-console.log('res: ', add(1, 2)(3));
+console.log('res: ', treeToArray(arr));

@@ -1,20 +1,23 @@
 /**
- * - 判断单棵树是否对称
+ * - leetcode LCR 145. 判断对称二叉树
+ *
+ * 题目描述：
+ *  请设计一个函数判断一棵二叉树是否 轴对称
  */
 
-/**
- * - 递归法
- */
-function isSymmetric(root) {
-  function isEqual(p, q) {
-    if (!p && !q) return true;
-    if (!p || !q) return false;
+const checkSymmetricTree = function (root) {
+  if (!root) return true;
+
+  function traverse(node1, node2) {
+    if (!node1 && !node2) return true;
+    if (!node1 || !node2) return false;
 
     return (
-      p.data === q.data && isEqual(p.left, q.left) && isEqual(p.right, q.right)
+      node1.val === node2.val &&
+      traverse(node1.left, node2.right) &&
+      traverse(node1.right, node2.left)
     );
   }
 
-  if (!root) return true;
-  return isEqual(root.left, root.right);
-}
+  return traverse(root.left, root.right);
+};

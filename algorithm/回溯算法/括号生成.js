@@ -38,10 +38,12 @@ function generateParenthesis(n) {
       return;
     }
     // 3. 深度优先遍历
+    // 加左括号
     if (leftCount < n) {
       dfs(curStr + '(', leftCount + 1, rightCount);
     }
 
+    // 加右括号
     if (rightCount < n) {
       dfs(curStr + ')', leftCount, rightCount + 1);
     }

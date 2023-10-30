@@ -12,9 +12,43 @@ const {
 } = require('../../lib/tree');
 
 /**
+ * - 二叉树路径问题通用解法（推荐）
+ */
+const hasPathSum = function (root, targetSum) {
+  if (!root) return false;
+  let result = false;
+
+  function traverse(node, paths) {
+    paths.push(node.val);
+
+    if (!node.left && !node.right) {
+      const sum = paths.reduce((acc, val) => acc + val, 0);
+      if (sum === targetSum) {
+        result = true;
+      }
+      return;
+    }
+
+    if (node.left) {
+      traverse(node.left, paths);
+      paths.pop();
+    }
+
+    if (node.right) {
+      traverse(node.right, paths);
+      paths.pop();
+    }
+  }
+
+  traverse(root, []);
+
+  return result;
+};
+
+/**
  * - 递归法
  */
-function hasPathSum(root, targetSum) {
+function hasPathSum_V2(root, targetSum) {
   if (root === null) return false;
 
   function traverse(curNode, count) {

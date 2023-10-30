@@ -11,71 +11,55 @@
  *  原因：342 + 465 = 807
  */
 
-import SinglyList, {
-  printSinglyList,
-  Node,
-} from '../../lib/singlyList';
-
-const debug = require('debug')('addTwoNumbers');
-
 /**
  * 解题思路：
  *  1. 三个链表的current指针：c1, c2, c3
  *  2. 新链表：l3
  *  3. 放到下一位相加的数字：carry
  */
-
 /**
- * @param {*} l1：链表1
- * @param {*} l2：链表2
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
  */
-function addTwoNumbers(l1, l2) {
-  const list3 = new SinglyList();
-  let currentNode1 = l1;
-  let currentNode2 = l2;
-  let currentNode3 = null;
+var addTwoNumbers = function (l1, l2) {
+  let current1 = l1;
+  let current2 = l2;
+  let head = null;
+  let current3 = null;
   let carry = 0;
 
-  while (currentNode1 || currentNode2 || carry) {
-    let v1 = 0;
-    let v2 = 0;
+  // while循环的判定条件
+  while (current1 || current2 || carry) {
+    let value = 0;
 
-    if (currentNode1) {
-      v1 = currentNode1.data;
-      currentNode1 = currentNode1.next;
+    if (current1) {
+      // 取值
+      value += current1.val;
+      // 移动
+      current1 = current1.next;
     }
-    if (currentNode2) {
-      v2 = currentNode2.data;
-      currentNode2 = currentNode2.next;
+    if (current2) {
+      // 取值
+      value += current2.val;
+      // 移动
+      current2 = current2.next;
     }
+    value += carry;
 
-    const sum = v1 + v2 + carry;
-    carry = Math.floor(sum / 10);
+    // 无论value大于9还是小于等于9，都可以统一计算carry和value
+    carry = Math.floor(value / 10);
+    value %= 10;
 
-    if (!currentNode3) {
-      currentNode3 = new Node(sum % 10);
+    const node = new ListNode(value);
+    if (current3) {
+      current3.next = node;
+      current3 = current3.next;
     } else {
-      currentNode3.next = new Node(sum % 10);
-      currentNode3 = currentNode3.next;
+      current3 = node;
+      head = current3;
     }
-    list3.append(currentNode3.data);
   }
 
-  return list3;
-}
-
-const l1 = new SinglyList();
-l1.append(2);
-l1.append(4);
-l1.append(6);
-console.log('l1:', printSinglyList(l1.head));
-
-const l2 = new SinglyList();
-l2.append(5);
-l2.append(6);
-l2.append(4);
-console.log('l2:', printSinglyList(l2.head));
-
-const l3 = addTwoNumbers(l1.head, l2.head);
-const resList = printSinglyList(l3.head);
-debug('resList: ', resList);
+  return head;
+};

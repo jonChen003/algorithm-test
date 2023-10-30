@@ -25,6 +25,7 @@
  * - 模拟栈
  * 时间复杂度：O(n) 需要遍历数组pushed 和 popped 各一次
  * 空间复杂度：O(n) 需要一个辅助栈
+ * 先入栈，再出栈
  */
 function validateStackSequences(pushed, popped) {
   const stack = []; // 需要利用到一个辅助栈做检查

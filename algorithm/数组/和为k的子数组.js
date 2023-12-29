@@ -11,7 +11,6 @@
  * 算法思想：哈希表 + 前缀和
  * 题目转化为：有几种 i、j 的组合，满足 prefixSum[j] - prefixSum[i - 1] === k
  * 其实我们不关心具体是哪两项的前缀和之差等于k，只关心等于 k 的前缀和之差出现的次数c
-
  */
 
 function subarraySum(nums, k) {

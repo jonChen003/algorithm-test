@@ -43,7 +43,7 @@ function threeSum(nums) {
   for (let i = 0; i < len - 2; i++) {
     // very important! 移除重复的三元组
     if (i === 0 || nums[i] > nums[i - 1]) {
-      if (nums[i] > 0) break; // 最左值为整数则一定无解
+      if (nums[i] > 0) break; // 最左值为正数则一定无解
       // 定义双指针
       let left = i + 1;
       let right = len - 1;

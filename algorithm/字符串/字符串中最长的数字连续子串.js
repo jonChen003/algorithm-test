@@ -12,7 +12,7 @@
  * 参考链接：https://www.jianshu.com/p/b4dfc225dc77
  */
 
-// 方法一：基础解法-空间复杂度为O(n)
+/// 方法一：基础解法-空间复杂度为O(n)
 /**
  * @param {*} str
  * @returns result[]
@@ -58,7 +58,7 @@ function findLongestNumberSubstringV1(str) {
  *  如果更长的话，就记录当前长度和开始index
  */
 
-// 方法二：优化解法-空间复杂度为O(1) (推荐)
+/// 方法二：优化解法-空间复杂度为O(1) (推荐)
 /**
  * @param {*} str
  * @returns result[]
@@ -71,7 +71,7 @@ function findLongestNumberSubstringV2(str) {
 
   const strLen = str.length;
   let index = 0;
-  let curLen = 0; // 记录最长长度的指针
+  let curLen = 0; // 记录最长长度
 
   // 遍历字符串
   while (index < strLen) {

@@ -49,6 +49,7 @@ function maxDepth(root) {
 
 /**
  * - 后序遍历(自下而上)
+ * 递归版本经典解法（推荐）
  */
 
 function maxDepthV2(root) {
